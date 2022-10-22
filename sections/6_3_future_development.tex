@@ -1,0 +1,20 @@
+\section{Future developments}\label{sec:future-developments}
+
+During the training process, the loss function often converges to the minimum value at about 200 epoch.
+But it does not decrease anymore, and the trajectory does not improve anymore.
+So, we should use a different loss function instead of the one used, MSE o WSME, because they are not suitable for this task.
+An ideal loss function for this task should describe the error in a way that the network can understand.
+
+Another problem is that we do not have a large amount of data, so we should create synthetic dataset which is more suitable for this task.
+For example, we can follow the approach adopted by Richter et al. (\cite{synthetic_dataset}), in this way we can create a dataset with a large number of images and poses.
+Then, use it for pre-training, and finally, use the real KITTI dataset for fine-tuning.
+
+We should also try with a different feature extractor, because the ResNets are designed for the classification task, and the embedding produced describes the image as whole, losing local information.
+This is because the use of pooling layers, which are used to guarantee the translation invariance of the network when performing the classification or object detection tasks.
+Meanwhile, for a task like VO this translation invariance is harmful, because it does not allow the network to learn the local features of the image.
+The approach adopted by Dosovitsky et al. (\cite{vit_paper}), which consisted in split the image in smaller patches, then extract the embedding for each patch, and then combine them, could be a good solution.
+
+Another experiment could be to change totally the feeding strategy, using a pair of images stacked together as did in many approaches, for example in ~\cite{deep_vo}.
+In the same way, we can try to use the optical flow of the input images to help the network to understand the local motion.
+
+As last attempt, it would be useful to try to use a RNN as prediction head, because it is able to learn the temporal information, and it can predict the next pose given the previous ones, also because, in the literature, good results have been reached using RNNs.

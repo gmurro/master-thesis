@@ -1,0 +1,162 @@
+%**************************************************************
+% Acronimi
+%**************************************************************
+\renewcommand{\acronymname}{Acronimi e abbreviazioni}
+%**************************************************************
+
+\newacronym[description={\glslink{mhag}{Multi-Head attention}}]
+{mha}{MHA}{Multi-Head Attention}
+\newglossaryentry{mhag}
+{
+    name=\glslink{mha}{MHA},
+    text= Multi-Head Attention,
+    sort= mha,
+    description={Multi head attention is a module for attention mechanisms which run through an attention mechanisms several times in parallel. The independent attention outputs are then concatenated and linearly transformed into the expected dimension.}
+}
+\newacronym[description={\glslink{slamg}{Simultaneous Localization and Mapping}}]
+{slam}{SLAM}{Simultaneous Localization and Mapping}
+\newglossaryentry{slamg}
+{
+    name=\glslink{slam}{SLAM},
+    text= Simultaneous Localization and Mapping,
+    sort= slam,
+    description={Slam is a computational problem of constructing or updating a map of an unknown environment while simultaneously keeping track of an agent's location within it.}
+}
+
+\newacronym[description={\glslink{imug}{Inertial measurement unit}}]
+{imu}{IMU}{Inertial measurement unit}
+\newglossaryentry{imug}
+{
+    name=\glslink{imu}{IMU},
+    text= Inertial measurement unit,
+    sort= imu,
+    description={Inertial measurement unit is a device that measures the motion of an object in space.}
+}
+\newacronym[description={\glslink{cnng}{Convolutional Neural Network}}]
+{cnn}{CNN}{Convolutional Neural Network}
+\newglossaryentry{cnng}
+{
+    name=\glslink{cnn}{CNN},
+    text= Convolutional Neural network,
+    sort= cnn,
+    description={Convolutional Neural Networks are a class of neural network which uses the convolution.
+    The convolution is a LSI operator, which given an input array and a kernel, it performs the summation of the element-wise product between elements of the kernel and those of the input, then it slides the kernel over the whole range of the input. }
+}
+
+\newacronym[description={\glslink{nng}{Neural network}}]
+{nn}{NN}{Neural network}
+\newglossaryentry{nng}
+{
+    name=\glslink{nn}{NN},
+    text= Neural network,
+    sort= nn,
+    description={Neural network models are a subset of Machine Learning models. NN is a network based on the concept of artificial neuron and neurons are organized in layers. The aim of the network is to mimic the data that is used in the training time. }
+}
+\newacronym[description={\glslink{mlpg}{Multi layer perceptron}}]
+{mlp}{MLP}{Multi Layer Perceptron}
+\newglossaryentry{mlpg}
+{
+    name=\glslink{mlp}{MLP},
+    text= Multi Layer Perceptron,
+    sort= mlp,
+    description={Multi layer perceptron is ...}
+}
+\newacronym[description={\glslink{nlpg}{Natural Language Processing}}]
+{nlp}{NLP}{Natural Language Processing}
+\newglossaryentry{nlpg}
+{
+    name=\glslink{nlp}{NLP},
+    text= Natural Language Processing,
+    sort= nlp,
+    description={Natural Language Processing is another important field of Artificial Intelligence, linguistics and computer science. It 's about the interactions between computers and human language, in particular, how to program computers to process and analyze large amounts of natural language data.}
+}
+\newacronym[description={\glslink{relug}{Rectified Linear Unit}}]
+{relu}{ReLU}{Rectified Linear Unit}
+\newglossaryentry{relug}
+{
+    name=\glslink{relu}{ReLU},
+    text= Rectified Linear Unit,
+    sort= relu,
+    description={ReLU is an activation function that can introduce non-linearities into the NN.}
+}
+\newacronym[description={\glslink{ateg}{Absolute Trajectory Error}}]
+{ate}{ATE}{Absolute Trajectory Error}
+\newglossaryentry{ateg}
+{
+    name=\glslink{ate}{ATE},
+    text= Absolute Trajectory Error,
+    sort= ate,
+    description={ATE compares the trajectory of a robot, as reconstructed by an algorithm using real sensor data as its input, to the actual trajectory (ground truth).}
+}
+
+\newacronym[description={\glslink{rteg}{Relative Trajectory Error}}]
+{rte}{RTE}{Relative Trajectory Error}
+\newglossaryentry{rteg}
+{
+    name=\glslink{rte}{RTE},
+    text= Relative Trajectory Error,
+    sort= rte,
+    description={RTE measures the accuracy of a SLAM result, as reconstructed by an algorithm using real sensor data as its input, by comparing the reconstructed relative transformation between nearby poses to the actual relative transformation.}
+}
+
+\newacronym[description={\glslink{gnssg}{Global Navigation Satellite System}}]
+{gnss}{GNSS}{Global Navigation Satellite System}
+\newglossaryentry{gnssg}
+{
+    name=\glslink{gnss}{GNSS},
+    text= Global Navigation Satellite System,
+    sort= gnss,
+    description={GNSS is a Satellite Navigation system with global coverage. A satellite navigation is a system that uses satellites to provide autonomous geo-spatial positioning. It allows satellite navigation devices to determine their location to high precision using time signals transmitted along a line of sight by radio from satellites.}
+}
+
+%**************************************************************
+% Glossario
+%**************************************************************
+%\renewcommand{\glossaryname}{Glossario}
+
+
+
+\newglossaryentry{word}
+{
+    name=\glslink{word}{Word},
+    text=word,
+    sort=word,
+    description={Example of a term in the glossary}
+}
+
+\newglossaryentry{vanishing gradient problem}
+{
+    name=\glslink{vanishing gradient problem}{Vanishing gradient problem},
+    text=vanishing gradient problem,
+    sort=vanishing gradient problem,
+    description={When there are more layers in the network, the value of the product of derivative decreases until at some point the partial derivative of the loss functions approaches a value close to zero, and the partial derivative vanishes.}
+}
+\newglossaryentry{auto-regressive}
+{
+    name=\glslink{auto-regressive}{Auto-regressive},
+    text=auto-regressive,
+    sort=auto-regressive,
+    description={A statistical  model is autoregressive if it predicts future values based on past values.}
+}
+\newglossaryentry{seq2seq}
+{
+    name=\glslink{seq2seq}{Seq2seq},
+    text=seq2seq,
+    sort=seq2seq,
+    description={Seq2seq is a model that maps a sequence of symbols to another sequence of symbols.}
+}
+
+\newglossaryentry{embedding}
+{
+    name=\glslink{embedding}{Embedding},
+    text=embedding,
+    sort=embedding,
+    description={Embedding is a relatively low-dimensional space into which you can translate high-dimensional vectors. Embeddings make it easier to do machine learning on large inputs like sparse vectors representing words. Ideally, an embedding captures some semantics of the input by placing semantically similar inputs close together in the embedding space.}
+}
+\newglossaryentry{opticalflow}
+{
+    name=\glslink{opticalflow}{Optical flow},
+    text=optical flow,
+    sort=optical flow,
+    description={Optical flow is the pattern of apprante motion of objects, surfaces and edges in a visual scene caused by the relative motion between an observer and a scene.}
+}
