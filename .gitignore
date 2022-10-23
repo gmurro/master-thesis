@@ -218,6 +218,13 @@ TSWLatexianTemp*
 # expex forward references with \gathertags
 *-tags.tex
 
+# compile files
+compile*
+*.bat
+*.xmpi
+
 .idea/
+
+*.pyc
 
 out/tesi.pdf
