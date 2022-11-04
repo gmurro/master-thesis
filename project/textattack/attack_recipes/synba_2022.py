@@ -34,7 +34,7 @@ class SynBA2022(AttackRecipe):
     def build(model_wrapper):
         #
         # Candidate size K is set to 30 for all data-sets.
-        transformation = WordSwapMultimodal(max_candidates=30, multimodal_weights=(0.3019, 0.2604, 0.4377), min_confidence=0.1)
+        transformation = WordSwapMultimodal(max_candidates=30, multimodal_weights=(0.284067, 0.107318,0.608615), min_confidence=0.1) #(0.3019, 0.2604, 0.4377), min_confidence=0.1)
         #
         # Don't modify the same word twice or stopwords.
         #
