@@ -325,7 +325,7 @@ class WordSwapMultimodal(WordSwap):
         for i in range(len(replacement_words)):
             index_to_modify = indices_to_modify[i]
             word_at_index = current_text.words[index_to_modify]
-            for word in replacement_words[i]:
+            for rank, word in enumerate(replacement_words[i]):
                 word = word.strip("Ġ")
                 word = _recover_word_case(word, word_at_index)
                 if (
@@ -333,9 +333,9 @@ class WordSwapMultimodal(WordSwap):
                     and re.search("[a-zA-Z -']", word)
                     and len(word) > 1
                 ):
-                    transformed_texts.append(
-                        current_text.replace_word_at_index(index_to_modify, word)
-                    )
+                    transformed = current_text.replace_word_at_index(index_to_modify, word)
+                    transformed.attack_attrs["transformations_rank"].append(rank+1)
+                    transformed_texts.append(transformed)
         return transformed_texts
         
     def extra_repr_keys(self):

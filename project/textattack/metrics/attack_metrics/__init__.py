@@ -11,3 +11,4 @@ from .attack_queries import AttackQueries
 from .attack_success_rate import AttackSuccessRate
 from .words_perturbed import WordsPerturbed
 from .attack_timer import AttackTimer
+from .attack_mrr import AttackMRR

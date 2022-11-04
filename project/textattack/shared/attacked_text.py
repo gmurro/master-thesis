@@ -71,6 +71,9 @@ class AttackedText:
         # A list of all indices in *this* text that have been modified.
         self.attack_attrs.setdefault("modified_indices", set())
 
+       # A list of the rank of all words in *this* text that have been modified.
+        self.attack_attrs.setdefault("transformations_rank", list())
+
     def __eq__(self, other):
         """Compares two text instances to make sure they have the same attack
         attributes.
@@ -414,6 +417,7 @@ class AttackedText:
         new_attack_attrs["original_index_map"] = self.attack_attrs[
             "original_index_map"
         ].copy()
+        new_attack_attrs["transformations_rank"] = self.attack_attrs["transformations_rank"].copy()
         new_i = 0
         # Create the new attacked text by swapping out words from the original
         # text with a sequence of 0+ words in the new text.
