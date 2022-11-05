@@ -71,29 +71,160 @@ where $\eta$ is the worst-case perturbation. The goal of the adversarial attack 
 %**************************************************************
 \subsection[Paradigm shift]{Paradigm shift: from CV to NLP}\label{subsec:paradigm-shift}
 Adversarial examples were first proposed for attacking DNNs for object recognition in the \acrfull{cv} community.
+The former work on this field by Szegedy et. al. \cite{szegedy2013intriguing}  was based on L-BFGS, but despite the effectiveness of the method, it was computationally expensive and impractical.
+Goodfellow et al. \cite{goodfellow2014explaining} proposed a \acrfull{fsgm} that popularized this research topic. It is a simplification of the L-BFGS method since it add a small perturbation to the input of a model, which is computed by taking the sign of the gradient of the loss function with respect to the input.
+Most follow-up research was based on optimizaion methods (eg. JSMA \cite{journals/corr/PapernotMJFCS15}, DeepFool \cite{journals/corr/Moosavi-Dezfooli15}, C\&W \cite{journals/corr/CarliniW16a}) or leveraging \acrfull{gan} to generate adversaries \cite{journals/corr/abs-1710-11342}.
+
+As shown in Figure \ref{fig:2_2_adversarial_trend}, adversarial technology has attracted attention and has developed rapidly. Based on the paper list\footnote{\url{https://nicholas.carlini.com/writing/2019/all-adversarial-example-papers.html}} collected by Carlini, the chart counts
+the number of publications related to adversarial in the CV and NLP fields. Compared with studies in the CV field, the publications in the NLP domain are far less. However, due to the wide application of NLP technology in text classification, sentiment analysis, text question-answering, neural machine translation, text generation and other tasks, as well as the continuous deepening of adversarial attack and defense technologies, the textual adversarial technology has gradually gained researchers' attention.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/2_2_papers.png}
+    \caption{Adversarial technology trend in CV and NLP fields \cite{QIU2022278}}
+    \label{fig:2_2_adversarial_trend}
+\end{figure}
+
+Papernot et al. \cite{journals/corr/PapernotMSH16} is the first to investigate adversarial attacks
+on texts. Inspired by the idea of generating adversarial images, they crafted adversarial texts through the forward derivative associated with texts' embeddings, by modifying characters or words in original texts.
+
+
+\subsubsection{Particularities of adversarial text}\label{subsubsec:particularities-of-adversarial-text}
+
+Publications related to adversarial technology in the NLP field are far less than those in the CV field.
+The reason is that three extra constraints need to be considered when generating textual adversarial examples. Specifically:
+\begin{itemize}
+    \item \textbf{Discrete}: Unlike images represented by continuous pixel values, the symbolic text is discrete. Therefore, finding appropriate perturbations is critical to efficient textual adversarial example generation. 
+                             It is hard to define the perturbations on texts. Carefully designed variants or distance measurements for textual perturbations are required.
+    \item \textbf{Perceivable}: The well-performed adversarial image generation method is based on the premise that a few pixel value changes in an image are invisible to human eyes. However, a slight modification of a character or word is easily realized by human eyes and spelling checkers. Hence, finding textual adversarial examples that are hard to be observed by human eyes is vital for successful adversarial attacks.
+    \item \textbf{Semantic}: Compared with images whose overall semantics do not change when changing a few pixel values, the semantics of a text could be altered by even replacing or adding a character, violating the principle that adversarial examples are perceivable to humans. Therefore, keeping the semantics consistent is the key to crafting influential adversarial texts.
+\end{itemize}
+
+These differences make it extraordinarily difficult for
+researchers to employ methods dealing with images to adversarial attacks. Moreover, one of the first tasks of NLP
+models is to work on real data to check their generalization ability. Although adversarial attacks are a practical approach to evaluate robustness, most of them have the problem of being task-specific, not being well generalized, and not presenting comprehensive guidelines for evaluating system robustness.
 
 %**************************************************************
 \subsection{Taxonomy of textual adversarial attacks}\label{subsec:taxonomy-textual-adversarial-attacks}
 
-%from https://arxiv.org/pdf/1810.00069.pdf
+Textual adversarial attack methods can be categorized according different criteria. In this section, we will introduce the taxonomy of textual adversarial attacks based on model access, adversarial goal, semantic granularity and attack strategy, as shown in Figure \ref{fig:2_2_taxonomy}.
 
-Adversarial attacks at the testing time do not tamper with the targeted model but rather forces it to produce incorrect outputs. The effectiveness of such attacks
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/2_2_taxonomy.png}
+    \caption{Categorization of textual adversarial attack methods \cite{QIU2022278}}
+    \label{fig:2_2_taxonomy}
+\end{figure}
+
+%-------------------------------------------------------------
+\subsubsection{Model access}\label{subsubsec:model-access}
+
+Adversarial attacks at the testing time do not tamper with the targeted model but rather forces it to produce incorrect outputs. 
+The effectiveness of such attacks
 is determined mainly by the amount of information available to the adversary about the model.
-Testing phase attacks can be broadly classified into either White-Box or Black-Box attacks. Before
-discussing these attacks, we provide a formal definition of a training procedure for a machine
-learning model.
-Let us consider a target machine learning model f is trained over input pair (X,y) from the
-data distribution µ with a randomized training procedure train having randomness r (e.g., random
-weight initialization, dropout, etc.). The model parameters θ are learned after the training procedure.
-More formally, we can write:
-θ ← train(f ,X,y,r)
-Now, let us understand the capabilities of the white-box and black-box adversaries with respect
-to this definition. An overview of the different threat models have been shown in Figure. 4
-White-Box Attacks. In white-box attack on a machine learning model, an adversary has total
-knowledge about the model (f ) used for classification (e.g., type of neural network along with
+Testing phase attacks can be broadly classified into either \emph{white-box} or \emph{black-box} attacks \cite{journals/corr/abs-1810-00069}.
+
+\textbf{White-Box Attacks}. In white-box attack on a machine learning model, an adversary has total
+knowledge about the model used for classification (e.g., type of neural network along with number of layers). The attacker has information about the algorithm used in training (e.g.
+gradient-descent optimization) and can access the training data distribution. He also knows the
+parameters of the fully trained model architecture. The adversary utilizes available information
+to identify the feature space where the model may be vulnerable, for which the model has
+a high error rate. Then the model is exploited by altering an input using adversarial example
+crafting method.
+
+\textbf{Black-Box Attacks}. Black-box attack, on the contrary, assumes no knowledge about the model
+and uses information about the settings or past inputs to analyse the vulnerability of the model.
+For example, in an oracle attack, the adversary exploits a model by providing a series of carefully
+crafted inputs and observing outputs.  For example, to identify meaningful words in given texts, works in \cite{journals/corr/SamantaM17, conf/acl/RenDHC19, journals/corr/abs-1907-11932} computed the probability change value, word saliency, and classification probability by using the victim model's output.
+
+
+%-------------------------------------------------------------
+\subsubsection{Adversarial goal}\label{subsubsec:adversarial-goal}
+
+According to the attack purpose of an adversary, adversarial
+attack methods are categorized into targeted and non-targeted attacks \cite{QIU2022278}.
+
+\textbf{Non-targeted attack}. The adversary hopes to generate an adversarial example $x^\prime$ that makes the victim model $f$ produce a wrong output $f(x^\prime) \neq y$, where $y$ is the correct label of the input $x$. Since there is no limit on the target wrong output, this kind of attack is more frequently employed.
+
+\textbf{Targeted attack}. In this scenario, the adversary intends to generate adversarial examples that make victim models output a specified wrong prediction. More specifically, the adversary hopes that the generated example $x^\prime$ to cause the victim model $f$ outputting $t=f(x^\prime)$, where $t$ is the output specified by the adversary.
+
+%-------------------------------------------------------------
+\subsubsection{Attack strategy}\label{subsubsec:attack-strategy}
+
+According to different strategies in the adversarial example generation process, Shilin Qiu et al. \cite{QIU2022278} divide adversarial attacks into six types: gradient-based, optimization-based, importance-based, editbased, paraphrase-based, and generative model-based methods. Among them, strategies like the gradient-based method are evolved from adversarial image generation methods, and the implementation process of these attacks is usually relatively straightforward. While other methods like the optimizationbased and edit-based methods are proposed for discrete data, they generally show better performance in maintaining semantic consistency and grammatical correctness; however, they have enormous difficulty when designing well-turned algorithms.
+
+\textbf{Gradient-based}. These methods calculate the forward derivative to the input and obtain adversarial perturbations by gradient backpropagation. Therefore, the vectorization for text needs to be implemented at first.
+
+\textbf{Optimization-based}. It regards the adversarial example generation as a minimax optimization problem, i.e., maximizing the victim model's prediction error while the difference between the adversarial example and the original one is within an acceptable range. Currently, researchers craft adversarial texts essentially based on evolutionary algorithms, such as the \acrshort{ga} and \acrshort{pso}.
+
+\textbf{Importance-based}. This means that which object is to be modified and how to modify it are determined by each object's importance related to the victim model. Since the more critical the changed word is, the easier it is to change the prediction of the victim model, even if the change is small enough. The adversarial example generated by this strategy generally maintains semantic consistency, grammatical, and syntactic correctness well.
+
+\textbf{Edit-based}. It crafts adversarial examples by operations like inserting, removing, and swapping characters, words, or sentences. These editing operations are also used in other approaches, such as gradient-based, optimization-based, and importance-based methods. Therefore, the edit-based method refers to attacks that utilize the above editing operations but do not use the gradient information, optimization algorithm, or item importance.
+
+\textbf{Paraphrase-based}. The adversary takes the paraphrase of a sentence as its adversarial example. In the paraphrase generation process, the adversary introduces different extra conditions to fool the victim model without affecting human judgment. The sentence-level attacks commonly use these approaches.
+
+\textbf{Generative model-based}. This method uses the generative model like the GAN and encoder-decoder model to generate adversarial texts, and is frequently used in sentence-level attacks. Since there are gradient back propagations when training the generative model or crafting adversarial examples, these methods are usually combined with other techniques, such as \acrshort{rl}.
+
+%-------------------------------------------------------------
+\subsubsection{Semantic granularity}\label{subsubsec:semantic-granularity}
+
+Since the text is discrete, classifying adversarial attacks according to semantic granularity is more intuitive than NLP tasks or black/white-box scenarios.
+Thus, Huq et al. \cite{https://doi.org/10.48550/arxiv.2005.14108} divided textual adversarial attacks into four categories: the character-level, word-level, sentencelevel, and multi-level attack.
+
+\textbf{Character-Level Attack}. Individual characters in this attack are either modified with new characters, special characters, and numbers. These are either added to the texted, swapped with a neighbor, removed from the word, or flipped.
+
+\textbf{Word-Level Attack}. In this attacks words from the texts are changed with their synonyms, antonyms, or changed to appear as a typing mistake or removed completely.
+
+\textbf{Sentence-Level Attack}. This attack inserts extra distractor sentences, generates the paraphrase, or modifies the original sentence structure to fool the victim model.
+
+\textbf{Multi-Level Attack}. Attacks which can be used in a combination of character, word, and sentence level are called multi-level attack.
 
 %**************************************************************
 \subsection{Adversarial attack methods from literature}\label{subsec:aam-from-literature}
+
+Several adversarial attack methods have been proposed in the literature. In this section, we present a brief overview of the most popular ones, listed in Table \ref{tab:attack-methods}.
+
+Those methods are categorized according to the classification defined in Sec. \ref{subsubsec:semantic-granularity}:
+1 character-level attack (DeepWordBug \cite{journals/corr/abs-1801-04354}), 4 word-level attacks (Probabilistic Weighted Word Saliency (PWWS) \cite{conf/acl/RenDHC19}, TextFooler \cite{journals/corr/abs-1907-11932}, BERT-based attack \cite{conf/emnlp/LiMGXQ20} and Semese-PSO \cite{conf/acl/ZangQYLZLS20}), 2 sentence-level attacks (Synthetically Controlled Paraphrase Networks (SCPNs \cite{conf/naacl/IyyerWGZ18}), and GAN-based attack \cite{journals/corr/abs-1710-11342}), and 1 multi-level attack (TextBugger \cite{conf/ndss/LiJDLW19}).
+
+DeepWordBug detemines top critical tokens and modifies them by character-level transformations introducing typos. 
+PWWS is a synonym substitution method that make use of the word saliency and classification probability.
+TextFooler identifies important words, and replace them with the most semantically similar and grammatically correct substitutes.
+BERT-based attack finds the vulnerable words for the target model and replaces them with candidates from a pre-trained BERT model.
+Semese-PSO reduces search space by a sememe-based word replacement method, searching for adversarial examples by the PSO algorithm in the reduced search space.
+SCPNs generates adversarial examples by paraphrasing the original sentence using an encoder-decoder model.
+GAN-based attack generates adversarial examples using iterative stochastic search and hybrid shrinking search. The framework consisting of a GAN and a converter.
+TextBugger generates character-level and word-level adversarial texts according to the importance in black-box and white-box scenarios.
+
+
+
+\begin{table}[h]
+  \footnotesize
+  \centering
+  \begin{tabular}{|l||l|l|l|l|}
+    \hline
+    Method & Granularity & Strategy & Model access & Attack goal \\
+    \hline \hline
+    DeepWordBug & Character-level & Importance-based & Black-box & Non-targeted \\ 
+    \hline
+    PWWS & Word-level & Importance-based & Black-box & Non-targeted \\
+    \hline
+    TextFooler & Word-level & Importance-based & Black-box & Non-targeted \\
+    \hline
+    BERT-based & Word-level & Importance-based & Black-box & Non-targeted \\
+    \hline
+    Semese-PSO & Word-level & Optimization-based & Black-box & Non-targeted \\
+    \hline
+    SCPNs & Sentence-level & Paraphrase-based & Black-box & Non-targeted \\
+    \hline
+    GAN-based & Sentence-level & Generative model-based & Black-box & Non-targeted \\
+    \hline
+    TextBugger & Multi-level & Importance-based & Black/White-box & Non-targeted \\
+    \hline
+  \end{tabular}
+  \caption{Several adversarial attack methods from literature}
+\label{tab:attack-methods}
+\end{table}
 
 %--------------------------------------------------------------
 \subsubsection{TextFooler}\label{subsubsec:textfooler}

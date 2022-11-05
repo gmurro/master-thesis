@@ -83,19 +83,12 @@ For example, we can easily understand the text “I saw a cat”, but our models
 Such vectors, called \glsplural{word embedding}, are representations of words which can be fed into a model.
 
 
-\subsubsection{Bag of words}\label{subsubsec:bag-of-words}
+\subsubsection{Word-count-based embedding}\label{subsubsec:bag-of-words}
 A common approach to represent a text document is to use a column vector of word counts.
 This embedding is often called a \gls{bag-of-words}, because it includes only information about the count of each word, and not the order in which the words appear.
-
 The bag-of-words representation ignores grammar, sentence boundaries, paragraphs — everything but the words. Yet the bag of words model is surprisingly effective for text classification.
-In the example in the Figure \ref{fig:bag_of_words}, instead of representing the word order in all the phrases like “I love this movie” and “I would recommend it”, we simply note that the word I occurred 5 times in the entire excerpt, the word it 6 times, the words love, recommend, and movie once, and so on \cite{Jurafsky2009}.
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/2_1_bag_of_words.png}
-    \caption{Bag-of-words representation of a a movie review, where only the frequency of each word is considered.}\label{fig:bag_of_words}
-\end{figure}
-
+Another word-count-based method based on the encoding method, widely used in the information retrieval neighborhood, is \acrshort{tfidf}, short for term frequency-inverse document frequency, which aims to reflect the significance ofthe specified term in the document collection and is one of the popular term weighting schemes.
 
 \subsubsection{Dense embeddings}\label{subsubsec:static-embeddings}
 Bag-of-words embeddings are sparse and long vector with dimensions corresponding to words in the vocabulary or documents in a collection.

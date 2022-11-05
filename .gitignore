@@ -224,6 +224,7 @@ compile*
 *.xmpi
 
 .idea/
+__pycache__/
 
 *.pyc
 
