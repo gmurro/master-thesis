@@ -1,2 +1,17 @@
 \section{Human evaluation}\label{sec:human-evaluation}
+
+% from BERT is Robust! A Case Against Synonym-Based Adversarial Examples in Text Classification
+% For the human evaluation, we relied on labor crowd-sourced from Amazon Mechanical Turk. We limited our worker pool to workers in the United States and
+% the United Kingdom who completed over 5000 Human Intelligence Tasks (HITs)
+% with over 98\% success rate. We collected 100 pairs of [original word, attack word]
+% for every attack and another 100 pairs for every attack where the context is included with a window size of 11. For the word-pairs, inspired by [24], we asked
+% the workers to react to the following claim: “In general, replacing the first word
+% with the second word preserves the meaning of the sentence.” For the words with
+% context, we presented the two text fragments on top of each other, highlighted
+% the changed word, and asked the workers: “In general, the change preserves the
+% meaning of the text fragment.” In both cases the workers had seven answers
+% to choose from: “Strongly Disagree”, “Disagree”, “Somewhat Disagree”, “Neutral”,
+% “Somewhat Agree”, “Agree”, “Strongly Agree”. We convert these answers to a scale
+% from 1-7, where higher is better. Every word-pair was judged by ten workers, the
+% words with context were scored by five workers each.
 %**************************************************************
