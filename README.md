@@ -5,5 +5,6 @@ You need to have a LaTeX distribution installed on your machine. I recommend [Te
 Follow this [tutorial](https://mathjiajia.github.io/vscode-and-latex/#step-1-download--install-tex-live) to configure LaTeX with VSCode.
 
 
-
+TODO:
 - Run statistical test (p-value) for human evaluation
+- Fix examples in Table 3.1

@@ -1,8 +1,23 @@
 \section{Research design}\label{sec:research-design}
 %**************************************************************
 
-\subsection{Models to attack}\label{subsec:models-to-attack}
+Although adversarial attacks are a practical approach to evaluate robustness, most of them have the problem of being task-specific, not being well generalized.
+Thus, this thesis is focused only on text classification task, including sentiment analysis, topic classification, and natural language inference.
 
-% white box, classification
+As baseline methods for adversarial attacks, we choose TextFooler \cite{journals/corr/abs-1907-11932} and BAE \cite{conf/emnlp/GargR20}.
+Those are compared with the proposed method from a qualitative perspective. Morover also a quantitative evaluation is performed to measure the efficiency.
 
-%**************************************************************
+\subsection{Attack category}\label{subsec:attack-category}
+
+There are exploiding combinations of the categories listed in Section \ref{subsec:taxonomy-textual-adversarial-attacks} in which our proposed attack method can fall into.
+As design choice, we defined the category of the attack in which we want to conduct our research.
+
+Mainstream work has focused on word-level perturbation because of the large search space of substitution words and hardness to maintain sentence semantics. 
+Word-level methods usually maintain imperceptibility better than other attacks, so we also explored this category of attacks.
+
+Differently from the baseline methods (TextFooler and BAE), our proposal attempt to generate adversarial examples in a white-box setting, which means that the attacker has access to the target model. 
+This is a more realistic scenario, since the goal of the attacker is to craft adversaries with the purpose of enhance the robustness of the target model. 
+Thus, he has full access to the model and can exploit it to generate the perturbations.
+
+The attack strategy and the adversarial goal are the same as the baselines, respectively importance-based and non-targeted attack.
+

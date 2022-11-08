@@ -25,7 +25,7 @@ Although adversarial training can effectively improve the robustness of NLP mode
 \subsection{Attack to Training}\label{subsec:a2t}
 High computational cost hinders the use of vanilla adversarial training in NLP, and it is unclear how and as to what extent such training can improve an NLP model's performance.
 
-\cite{https://doi.org/10.48550/arxiv.2109.00544} propose to improve the vanilla
+Yoo et al. \cite{https://doi.org/10.48550/arxiv.2109.00544} propose to improve the vanilla
 adversarial training in NLP with a computationally cheaper adversary, referred to as \acrfull{a2t}. 
 A2T attempts to generate adversarial examples on the fly during training of the model on the training set, which is much cheaper than generating adversarial examples in advance.
 This approach can improve an NLP model's robustness to the attack it was originally trained with and also defend the model against other types of word substitution attacks.

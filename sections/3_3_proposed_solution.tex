@@ -1,21 +1,78 @@
 \section{Proposed solution}\label{sec:proposed-solution}
 %**************************************************************
 
+TextFooler and BERT-Attack suffer respectively from a lack of context and semantic similarity. 
+We tried to combine their strengths in a novel method called SynBA (contextualized Synonym-Based adversarial Attack).
+The main idea is to generate a set of synonyms for each word in the sentence, and then to select the best synonym for each word based on the context and semantic similarity.
+
 %**************************************************************
 
 \subsection{Intuition}\label{subsec:intuition}
 
+In order to achieve semantic-consistent adversaries, we need to consider the cosine similarity between word embeddings or exploit a synonym dictionary.
+While the synonyms retrieved from a thesaurus like WordNet are often somewhat related to the original word, the relation is often the wrong one for the given context.
+Conversely, BERT has the potential to generate more fluent substitutions for an input text.
+
+Our intuition is that the ranked list of candidates for word replacement is obtained from the so called \emph{SynBA score}, a weighted function summing up three scores:
+\begin{itemize}
+    \item \textbf{MLM score} - the confidence of candidate obtained by MLM (BERT)
+    \item \textbf{Thesaurus score} - a score assigned to synonyms, hyponyms, and hypernyms of the original word in WordNet
+    \item \textbf{Word embedding score} - the cosine similarity between the original word and the candidate
+\end{itemize}
+
+Combining these three scores, we can obtain a ranked list of candidates that results in a more contextualized and semantically consistent adversary.
+
 %**************************************************************
 
 \subsection{SynBA components}\label{subsec:synba-components}
+SynBA has been implemented using TextAttack, a Python framework for implementing adversarial attacks in NLP (refer to section \ref{sec:text-attack} for more details).
+Followig the framework structure, we decomposed our attack method into four components: a goal function, a set of constraints, a transformation, and a search method.
+
+We reused some of the pre-existing components in TextAttack, such as the \texttt{UntargetedClassification} goal function, the \texttt{GreedyWordSwapWIR} search method and the constraints. 
+The innovative part of SynBA is the \texttt{WordSwapMultimodal} transformation, implementing the SynBA score mechanism.
+Table \ref{tab:3_3_comparing_components} summarizes the differences between SynBA and the two baselines.
+
+\begin{table}[h]
+    \footnotesize
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Components} & \textbf{TextFooler} & \textbf{BAE}  & \textbf{SynBA}\\ \hline
+Search Method &  Deletion-based &   Deletion-based & Gradient-based\\ 
+for Ranking Words & Word Importance & Word Importance & Word Importance \\ \hline
+Transformation & Word Embedding & BERT MLM & SynBA score \\ \hline
+ & POS  & POS & POS \\ 
+ Constraints & USE & USE & Sentence-BERT \\ 
+ & Word Embedding Distance &  & Word Embedding Distance \\ 
+ &  &  & Max Modification Rate \\ \hline
+ 
+\end{tabular}
+\caption{Comparing SynBA components with TextFooler and BAE}
+\label{tab:3_3_comparing_components}
+\end{table}
 
 %--------------------------------------------------------------
-
 \subsubsection{Search Method}\label{subsubsec:search-method}
 
+The search method is responsible for going through the search space of possible perturbations and  find a sequence of transformations that produce a successful adversarial example.
+
+In SynBA we use the \texttt{GreedyWordSwapWIR} search method, which is a greedy search method that iteratively applies the transformation to the input text, and selects the best candidate for each word based on the \acrfull{wir} score.
+Words of the given input are ranked according to the importance function. Then, in order of descending importance, each word is substituted with the best candidate given by the transformation
+that maximizes the scoring function until the goal is achieved, or all words have been perturbed.
+
+WIR is gradient-based, which means that it is able to rank the words in the input text exploiting the gradient of the loss function with respect to each token.
+
+It is the same search method used by the attack component in A2T (see section \ref{subsec:a2t}).
+Yoo et al. \cite{journals/corr/abs-2009-06368} showed that the gradient-ordering method is the fastest search method and provides competitive attack success rate when compared to the deletion-based method.
 %--------------------------------------------------------------
 
 \subsubsection{Transformation}\label{subsubsec:transformation}
+
+To enforce semantic preservation, we adopted the \texttt{WordSwapMultimodal} transformation function.
+
+
+%we tuned two thresholds which filter out invalid word substitutions: (a) minimum cosine similarity between counter-fitted word embeddings and (b) minimum cosine similarity between sentence embeddings. Through human studies, we found threshold values of 0.9 for (a) and 0.98 for (b)9. We implemented TFADJUSTED using TextAttack, a Python framework for implementing adversarial attacks in NLP (Morris et al., 2020).
+
 
 %--------------------------------------------------------------
 
@@ -24,6 +81,7 @@
 %--------------------------------------------------------------
 
 \subsubsection{Goal Function}\label{subsubsec:goal-function}
+Success/fail/skip
 
 %**************************************************************
 
@@ -32,5 +90,7 @@
 %**************************************************************
 
 \subsection{Candidates ranking calibration}\label{subsec:candidates-ranking-calibration}
-
+The candidate pool range is the major hyperparameter used in the BERT-Attack algorithm. As seen in Figure 2, the attack rate is rising along with the candidate size increasing. Intuitively, a larger 
+K would result in less semantic similarity. However, the semantic measure via Universal Sentence Encoder is maintained in a stable range, (experiments show that semantic similarities drop less than 2%), indicating that the candidates are all reasonable and semantically consistent with the original sentence. Further, a fixed candidate number could be rigid
+in practical usage, so we run a test using a threshold to cut off candidates that are less possible as a plausible perturbation. As seen in Table 4, when using a flexible threshold to cut off unsuitable candidates, the attacking process has a lower query number. This indicates that some candidates predicted by the masked language model with a lower prediction score may not be meaningful so skipping these candidates can save the unnecessary queries.
 %**************************************************************

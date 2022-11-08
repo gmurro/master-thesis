@@ -296,7 +296,7 @@ These GloVe vectors are specially curated for injecting antonymy and synonymy co
 
 
 \textbf{POS Checking}.
-To ensure the grammatical correctness of the generated adversarial examples, the part-of-speech (POS) tags of the original words are checked against the POS tags of the replacement candidates, and only the words with the same POS tags are kept.
+To ensure the grammatical correctness of the generated adversarial examples, the \acrfull{pos} tags of the original words are checked against the POS tags of the replacement candidates, and only the words with the same POS tags are kept.
 
 \textbf{Semantic Similarity Checking}.
 Each remaining candidate word is substituted into the original sentence $X$, and obtain the adversarial example $X_{adv}$. Then, the sentence semantic similarity is calculated between the source $X$ and adversarial counterpart $X_{adv}$. Specifically, \acrfull{use} \cite{journals/corr/abs-1803-11175} is used to encode the two sentences into high dimensional vectors and use their cosine similarity score as an approximation of semantic similarity. The words resulting in similarity scores above a preset threshold are placed into the final candidate pool.
