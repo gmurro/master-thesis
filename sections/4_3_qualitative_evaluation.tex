@@ -1,0 +1,19 @@
+\section{Qualitative evaluation}\label{sec:qualitative-evaluation}
+%**************************************************************
+
+% from BERT is ROBUST
+TextFooler is by far the most effective attack, at least before postprocessing. There is a simple reason for this, TextFooler already has that constraint and is the only attack out of the four to choose its candidate set directly from the counter-fitted embedding used to calculate the cosine similarity. On the other end of the spectrum, BAE’s attacks success rate drops close to zero. This is because the intersection of the set of words proposed by the MLM, the set of words with cosine similarity greater than 0.5, and the set of words keeping the USE score above 0.936 is small and leaves the attack not much room.
+However, there is one more reason why
+TextFooler is more effective compared to the other attacks, despite an additional constraint on the USE score. While attacking a piece of text, this constraint on the USE score is not checked between the current perturbed text spert and the original text s, but instead between the current perturbed text spert and the previous version s
+pert. This means
+that by perturbing one word at a time, the effective USE score between s and spert can be a lot lower than the threshold suggests. When discussing the effect of raising thresholds to higher levels, we do so by relying on TextFooler as the underlying attack because it is the most effective, but we adjust the constraint on the USE score to always compare to the original text. We believe this is the right way to implement this constraint, and more importantly, it is consistent with how we gathered data from Amazon Mechanical Turk.
+%**************************************************************
+
+\subsection{Results on rotten-tomatoes}\label{subsec:results-rotten-tomatoes}
+
+%**************************************************************
+
+\subsection{Results on imdb}\label{subsec:results-imdb}
+
+%**************************************************************
+
