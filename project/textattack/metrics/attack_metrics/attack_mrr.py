@@ -25,6 +25,9 @@ class AttackMRR(Metric):
 
         self.results = results
         self.mean_ranks = []
+        self.std_ranks = []
+        self.min_ranks = []
+        self.max_ranks = []
         self.mean_reciprocal_ranks = []
         for result in self.results:
             if isinstance(result, FailedAttackResult) or isinstance(
@@ -35,9 +38,15 @@ class AttackMRR(Metric):
             # compute mean rank and mean reciprocal rank only for successful attacks
             transformations_rank = result.perturbed_result.attacked_text.attack_attrs['transformations_rank']
             self.mean_ranks.append(np.mean(transformations_rank))
+            self.std_ranks.append(np.std(transformations_rank))
+            self.min_ranks.append(np.min(transformations_rank))
+            self.max_ranks.append(np.max(transformations_rank))
             self.mean_reciprocal_ranks.append(self.mean_reciprocal_rank(transformations_rank))
 
         self.all_metrics["avg_mean_rank"] = self.avg_mean_rank()
+        self.all_metrics["avg_std_rank"] = self.avg_std_rank()
+        self.all_metrics["avg_min_rank"] = self.avg_min_rank()
+        self.all_metrics["avg_max_rank"] = self.avg_max_rank()
         self.all_metrics["avg_mrr"] = self.avg_mrr()
 
         return self.all_metrics
@@ -68,3 +77,27 @@ class AttackMRR(Metric):
         avg_mean_rank = mean_ranks.mean() if len(mean_ranks) > 0 else 0.0
         avg_mean_rank = round(avg_mean_rank, 4)
         return avg_mean_rank
+
+    def avg_std_rank(self):
+        """Calculates the average std rank of all successful attacks."""
+
+        std_ranks = np.array(self.std_ranks)
+        avg_std_rank = std_ranks.mean() if len(std_ranks) > 0 else 0.0
+        avg_std_rank = round(avg_std_rank, 4)
+        return avg_std_rank
+    
+    def avg_min_rank(self):
+        """Calculates the average min rank of all successful attacks."""
+
+        min_ranks = np.array(self.min_ranks)
+        avg_min_rank = min_ranks.mean() if len(min_ranks) > 0 else 0.0
+        avg_min_rank = round(avg_min_rank, 4)
+        return avg_min_rank
+    
+    def avg_max_rank(self):
+        """Calculates the average max rank of all successful attacks."""
+
+        max_ranks = np.array(self.max_ranks)
+        avg_max_rank = max_ranks.mean() if len(max_ranks) > 0 else 0.0
+        avg_max_rank = round(avg_max_rank, 4)
+        return avg_max_rank
