@@ -24,7 +24,8 @@ from textattack.metrics.attack_metrics import (
     AttackQueries,
     AttackSuccessRate,
     WordsPerturbed,
-    AttackTimer
+    AttackTimer,
+    AttackMRR
 )
 from textattack.metrics.quality_metrics import ( 
     Perplexity, 
@@ -61,14 +62,17 @@ dataset = HuggingFaceDataset(dataset_name, None, "test")
 #text = """I have eaten here many a times and I highly recommend.\n\nI have never had a problem and the food is pretty good."""
 #dataset = Dataset([(text, 0)])
 
-seed = 7685 # random.randint(0, 10000)
+seed = 765 # random.randint(0, 10000)
 print("Seed: ",seed)
 
 
 attack = SynBA2022.build(model_wrapper)
-attack_args = AttackArgs(num_examples=2, shuffle=True, random_seed=seed, use_timer=True)
+attack_args = AttackArgs(num_examples=15, shuffle=True, random_seed=seed, use_timer=True)
 attacker = Attacker(attack, dataset, attack_args)
 attack_results = attacker.attack_dataset()
+
+mrr_metric = AttackMRR().calculate(attack_results)
+print("MRR: ", mrr_metric)
 
 contraciction_metric = ContradictionMetric().calculate(attack_results)
 print("Contradiction Metric: ", contraciction_metric)
@@ -79,6 +83,7 @@ print("BERT similarity: ", sbert_metric)
 attack_timer_stats = AttackTimer().calculate(attack_results)
 print("Attack timer stats:")
 pprint(attack_timer_stats)
+
 
 # attack_success_stats = AttackSuccessRate().calculate(attack_results)
 # words_perturbed_stats = WordsPerturbed().calculate(attack_results)

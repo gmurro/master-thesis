@@ -15,15 +15,17 @@
 
 \chapter*{Abstract}
 
-% This dissertation describes a deepening study about Visual Odometry problem tackled with transformer architectures.
-% The existing VO algorithms are based on heavily hand-crafted features and are not able to generalize well to new environments.
-% To train them, we need carefully fine-tune the hyper-parameters and the network architecture.
-% We propose to tackle the VO problem with transformer because it is a general-purpose architecture and because it was designed to transformer sequences of data from a domain to another one, which is the case of the VO problem.
+With the advent of high-computational devices, deep neural networks have gained a lot of popularity in solving many Natural Language Processing tasks. 
+However, they are also vulnerable to adversarial attacks, which are able to modify the input text in order to mislead the target model. 
+Adversarial attacks are a serious threat to the security of deep neural networks, and they can be used to craft adversarial examples that steer the model towards a wrong decision.
 
-% Our first goal is to create synthetic dataset using BlenderProc2 framework to mitigate the problem of the dataset scarcity.
-% The second goal is to tackle the VO problem by using different versions of the transformer architecture, which will be pre-trained on the synthetic dataset and fine-tuned on the real dataset, KITTI dataset.
+In this dissertation, we propose SynBA, a novel contextualized synonym-based adversarial attack for text classification. 
+SynBA is based on the idea of replacing words in the input text with their synonyms, which are selected according to the context of the sentence. 
 
-% Our approach is defined as follows: we use a feature-extractor to extract features embeddings from a sequence of images, then we feed this sequence of embeddings to the transformer architecture, finally, an MLP is used to predict the sequence of camera poses.
+We show that SynBA successfully generates adversarial examples that are able to fool the target model with a high success rate. 
+We demonstrate three advantages of this proposed approach: (1) effective---it outperforms state-of-the-art attacks by semantic similarity and perturbation rate, (2) utility-preserving---it preserves semantic content, grammaticality, and correct types classified by humans, and (3) efficient---it performs attacks faster than other methods.
+
+
 \endgroup
 
 \vfill

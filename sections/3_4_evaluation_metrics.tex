@@ -1,16 +1,51 @@
 \section{Evaluation metrics}\label{sec:evaluation-metrics}
-%**************************************************************
-% check Reevaluating Adversarial Examples in Natural Language
-%**************************************************************
+
+Since our objective is to evaluate the quality of the adversarial examples crafted by SynBA, TextFooler and BAE, 
+we need to define some sets of metrics that can be used to compare the effectiveness and efficiency of the different methods.
 
 \subsection{Attack metrics}\label{subsec:attack-metrics}
 
+The first set of metrics is used to evaluate the statistics of the attack process:
+\begin{itemize}
+    \item \textbf{Succeeded / Failed / Skipped}: number of input samples that are respectively successfully attacked, failed to be attacked, or skipped;
+    \item \textbf{Original accuracy}: accuracy of the model on the original input samples;
+    \item \textbf{Accuracy under attack}: accuracy of the model on the attacked input samples;
+    \item \textbf{Attack success rate}: percentage of input samples that are successfully attacked;
+    \item \textbf{Average perturbed word}: average percentage of words that are perturbed in the attacked input samples;
+\end{itemize}
 %**************************************************************
 
 \subsection{Quality metrics}\label{subsec:quality-metrics}
 
+The second set of metrics is used to evaluate the quality of the adversarial examples generated:
+\begin{itemize}
+    \item \textbf{Average SBERT similarity}: average semantic similarity between the original and the attacked input samples. It uses the same model of BERT constraint (\texttt{stsb-mpnet-base-v2}) to compute the sentence embeddings of the texts;
+    \item \textbf{Average original perplexity}: average perplexity of the original input samples;
+    \item \textbf{Average attacked perplexity}: average perplexity of the attacked input samples;
+    \item \textbf{Attack contradiction rate}: percentage of adversarial examples that results in a contradiction between the original and the attacked input samples.
+\end{itemize}
+
+Fixing a good LM, perplexity can be used to measure the language fluency of a text. 
+It is defined as the inverse probability of the text, so the lower the perplexity, the more fluent the text is.
+We used a pre-trained small GPT-2 \cite{gpt2} model to compute the perplexity of input texts before and after the attack.
+
+Instead, the contradiction rate makes use of an NLI model to assess whether the original input (premise) contradicts the adversarial example (hypothesis).
+The idea is that if the perturbation introduces antonyms or changes the polarity of the sentence, a textual entailment model should be able to detect it. The lower the rate of contradiction, the better the attack method.
+We used the pre-trained cross-encoder \texttt{nli-deberta-v3-base}\footnote{\url{https://huggingface.co/cross-encoder/nli-deberta-v3-base}}, which takes as input a text pair and outputs a probability distribution over the three classes: \emph{entailment}, \emph{contradiction}, and \emph{neutral}.
+It is trained on the SNLI \cite{journals/corr/BowmanAPM15} and MultiNLI \cite{journals/corr/WilliamsNB17} datasets and achieves a high accuracy of 90.04\% on the MNLI mismatched set.
+Only the pairs for which the contradiction output probability is the highest are considered contradictory.
+
 %**************************************************************
 
-\subsection{Performance metrics}\label{subsubsec:performance-metrics}
+\subsection{Performance metrics}\label{subsec:performance-metrics}
+
+In order to evaluate the performance of the attack methods, we also define a set of metrics that can be used to compare the execution time of the different methods:
+\begin{itemize}
+    \item \textbf{Average attack time}: average time needed to craft an adversarial example;
+    \item \textbf{Average WIR time}: average time needed to compute the word importance ranking;
+    \item \textbf{Average transformation time}: average time needed to perform a transformation step;
+    \item \textbf{Average constraints time}: average time needed to check the constraints;
+    \item \textbf{Average query number}: average number of queries to the target model used to craft an adversarial example.
+\end{itemize}
 
 %**************************************************************

@@ -93,5 +93,9 @@ class AttackTimer(Metric):
     def compute_avg_dict(self, dict_list):
         avg_dict = {}
         for key in dict_list[0].keys():
-            avg_dict[key] = round(sum(d[key] for d in dict_list) / len(dict_list), 3) if len(dict_list) > 0 else 0.0
+            s = 0
+            for d in dict_list:
+                if key in d:
+                    s += d[key]
+            avg_dict[key] = round(s/len(dict_list), 4) if len(dict_list) > 0 else 0.0
         return avg_dict

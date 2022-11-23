@@ -1,20 +1,41 @@
 \section{Data collection}\label{sec:data-collection}
 %**************************************************************
 
+SynBA has been evaluated under the same contradictions against TextFooler \cite{conf/emnlp/LiMGXQ20} and BAE \cite{conf/emnlp/GargR20}, two baseline attack methods that represent  the state-of-the-art in the field of text classification attacks. 
 %**************************************************************
 \subsection{Experimental setup}\label{subsec:experimental-setup}
 
+We ran our experiments on a machine running
+Ubuntu 20 with GeForce RTX 2070 SUPER (8 GB) GPU and a AMD Ryzen 9 3900X 12-Core processor.
+The version of PyTorch used is \texttt{1.11.0} and the version of Python is \texttt{3.8.10}.
+Performing adversarial attacks under the same resources allows us to have a fair comparison between the methods.
+
 %**************************************************************
 
-\subsection{Datasets perturbed}\label{subsec:datasets-perturbed}
-Thus the sequence length plays an important role in the high-quality perturbation process. 
+\subsection{Datasets perturFbed}\label{subsec:datasets-perturbed}
 
+The number of words in the input affects the running time and success rate for each attack method. 
+Indeed the more words the input has, the more time it takes to generate the attack.
+On the other hand, if the input sequence is long, the attack is more likely to succeed because there are more words to perturb.
+
+We have chosen to use the following benchmark datasets for our experiments, that are very well known in literature and have been used in many previous works:
+\begin{itemize}
+    \item \textbf{IMDB} \cite{maas-EtAl:2011:ACL-HLT2011}: a dataset of 50,000 movie reviews from IMDB, labelled as positive or negative. The dataset is split into 25,000 reviews for training and 25,000 reviews for testing;
+    \item \textbf{Rotten Tomatoes} \cite{pang-lee:2005a}: a dataset for binary sentiment classification  containing containing 5,331 positive and 5,331 negative processed sentences from Rotten Tomatoes movie reviews.
+\end{itemize}
+
+We sampled 1000 examples from each dataset, and we used them as input for the attacks.
+IMDB and Rotten Tomatoes test sets obtained results in very different numbers of words in the input. While the former has an average of $229$ words ($\pm162$) per example, the latter has an average of $19$ words ($\pm9$) per example.
+This distinction allows generalizing the results achieved without focusing on the property of a specific dataset. 
 %**************************************************************
 
 \subsection{Model attacked}\label{subsec:model-attacked}
 
-Pre-trained language models have become mainstream for many NLP tasks.
-craft adversarial samples to fool the fine-tuned BERT model.
-We use the BERT-base-uncased model provided by the Hugging Face Transformers (Wolf et al.,
+The target models for the attacks performed during this work are BERT-base-uncased models provided by the Hugging Face Transformers, 
+fine-tuned according to the dataset used as input:
+\begin{itemize}
+    \item IMDB\footnote{\url{https://huggingface.co/textattack/bert-base-uncased-imdb}} for 5 epochs, reaching an accuracy of $89.08\%$ on the eval set;
+    \item Rotten Tomatoes\footnote{\url{https://huggingface.co/textattack/bert-base-uncased-rotten-tomatoes}} for 10 epochs, reaching an accuracy of $87.52\%$ on the eval set.
+\end{itemize}
 
 %**************************************************************

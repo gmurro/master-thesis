@@ -4,17 +4,17 @@
 Most recent adversarial attack methods described in \ref{subsec:taxonomy-textual-adversarial-attacks} successfully decrease the accuracy of the target model.
 However, since the main goal of the research is to enhance the robustness of the target model, we need to ensure that the quality of the crafted adversarial examples should be high, because the target model will be re-trained with them.
 
-A successful natural language adversarial example can be defined as a perturbation that fools the model and fulfill a set of linguistic constraints.
+A successful natural language adversarial example can be defined as a perturbation that fools the model and fulfils  a set of linguistic constraints.
 As an example in sentiment analysis (Figure \ref{fig:3_adverarial_example}), an attacker can fool the system by changing only one word from “Perfect” to “Spotless,” which can completely change the predicted output without being discerned by humans.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\linewidth]{images/3_adversarial_attack.png}
-    \caption{Text adversarial attack in sentiment analysis \cite{10.1155/2022/6458488}}
+    \caption{Textual adversarial attack in sentiment analysis \cite{10.1155/2022/6458488}}
     \label{fig:3_adverarial_example}
 \end{figure}
 
-Formally, besides the ability to fool the target models, outputs of a natural language attacking system should meet three key utility preserving properties, defined by Jin et al. \cite{journals/corr/abs-1907-11932} as follows:
+Formally, besides the ability to fool the target models, the outputs of a natural language attacking system should meet three key utility-preserving properties, defined by Jin et al. \cite{journals/corr/abs-1907-11932} as follows:
 \begin{enumerate}
     \item \emph{human prediction consistency} - prediction by humans should remain unchanged;
     \item \emph{semantic similarity} -  the crafted example should bear the same meaning as the source, as judged by humans
@@ -63,11 +63,11 @@ Table \ref{tab:3_1_wrong_adversarial_examples} highlights some examples of adver
 \subsection{Research objective}\label{subsec:research-objective}
 
 In order to address the research questions defined in Section \ref{sec:research-question}, 
-we propose a new approach to generate adversarial examples that meet the linguistic constraints.
+we propose a new approach to generate adversarial examples that meet linguistic constraints.
 In particular, we aim to demonstrate that:
 \begin{itemize}
     \item using our evaluation framework defined in \ref{ch:experimental-results}, we can identify the weaknesses of existing attack methods;
-    \item the utility preserving properties measured on the proposed solution outperform the state-of-the-art;
+    \item the utility-preserving properties measured on the proposed solution outperform the state-of-the-art;
 \end{itemize}
  
 

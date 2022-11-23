@@ -8,3 +8,4 @@ Follow this [tutorial](https://mathjiajia.github.io/vscode-and-latex/#step-1-dow
 TODO:
 - Run statistical test (p-value) for human evaluation
 - Fix examples in Table 3.1
+- wtrite better perplextiy explanation

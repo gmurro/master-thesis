@@ -6,16 +6,16 @@ It encompasses a variety of topics, which involves the engineering of computatio
 processes to solve practical problems in understanding and generating human
 languages. These solutions are used to build useful software.
 
-The linguistics computational has two
-branches---computational linguistics and theoretical linguistics. The computational
+Linguistics has two
+branches---computational linguistics and theoretical linguistics. Computational
 linguistics has been concerned with developing algorithms for handling a useful
-range of natural language as input. While the theoretical linguistics has focused
+range of natural language as input. While theoretical linguistics has focused
 primarily on one aspect of language performance, grammatical competence---how
-people accept some sentences as correctly following grammatical rules and others as ungrammatical. They are concerned with language universals—principals of
+people accept some sentences as correctly following grammatical rules and others as ungrammatical. They are concerned with language universals—principles of
 grammar which apply to all natural languages \cite{Cole:1996}.
 
 Computational linguistics is concerned with the study of natural language analysis
-and language generation. Further, the language analysis is divided into two domains,
+and language generation. Further, language analysis is divided into two domains,
 namely sentence analysis, and discourse and dialogue structure. Much more is known
 about the processing of individual sentences than about the determination of discourse
 structure. Any analysis of discourse structure requires a prerequisite as an analysis of
@@ -37,7 +37,7 @@ among different components of NLP \cite{Chowdhary2020}.
 \end{figure}
     
 
-Some of the common applications of NLP are: Classification of text into categories, Index and search large texts, Automatic translation, Information extraction,
+Some of the common applications of NLP are Classification of text into categories, Index and search large texts, Automatic translation, Information extraction,
 Automatic summarization, Question answering, Knowledge acquisition, and Text
 generations/dialogues.
 Some of those tasks are discussed in sections \ref{subsec:text-classification}, \ref{subsec:sentiment-analysis}, \ref{subsec:nli}, \ref{subsec:seq2seq}.
@@ -91,43 +91,43 @@ The bag-of-words representation ignores grammar, sentence boundaries, paragraphs
 Another word-count-based method based on the encoding method, widely used in the information retrieval neighborhood, is \acrshort{tfidf}, short for term frequency-inverse document frequency, which aims to reflect the significance ofthe specified term in the document collection and is one of the popular term weighting schemes.
 
 \subsubsection{Dense embeddings}\label{subsubsec:static-embeddings}
-Bag-of-words embeddings are sparse and long vector with dimensions corresponding to words in the vocabulary or documents in a collection.
+Bag-of-words embeddings are sparse and long vectors with dimensions corresponding to words in the vocabulary or documents in a collection.
 A more powerful word representation is a dense vector, where instead of mostly-zero counts, the values will be real-valued numbers that can be negative.
 It turns out that dense vectors work better in every NLP task than sparse vectors.
 
 Bengio et al. \cite{conf/nips/BengioDV00} presented a model which learned word representations using distributed
-representation. Authors presented a neural model which obtains word representations as to
-the product while training \gls{language-model}.
+representation. The authors presented a neural model which obtains word representations as to
+the product while training a \gls{language-model}.
 The popularity of word representation methods are due to two famous models, Word2Vec
 \cite{mikolov2013efficient} and GloVe \cite{pennington2014glove}.
 
 \subsubsection{Contextual embeddings}\label{subsubsec:contextual-embeddings}
-To address the issue of polysemous and the context-dependent nature of words, we need
+To address the issue of polysemous and the context-dependent nature of words, we need to
 distinguish the semantics of words in different contexts.
 
-Contextualised word embeddings are variable vector that are dependent on the context in which the word is used.
+Contextualised word embeddings are variable vectors that are dependent on the context in which the word is used.
 So, representations of a given word are multiple and are
 directly computed from their context. The context of a
-word is usually composed by the words surrounding it.
+word is usually composed of the words surrounding it.
 
 These contextualized representations are set to the hidden states of a deep neural model, which is trained as a language model.
-By running the language model, we obtain contextualized word representations, which can then be used as the base layer in a supervised neural network for any task. This approach yields significant gains over pretrained word embeddings on several tasks, presumably because the contextualized embeddings use unlabeled data to learn how to integrate linguistic context into the base layer of the supervised neural network.
+By running the language model, we obtain contextualized word representations, which can then be used as the base layer in a supervised neural network for any task. This approach yields significant gains over pre-trained word embeddings on several tasks, presumably because the contextualized embeddings use unlabeled data to learn how to integrate linguistic context into the base layer of the supervised neural network.
 
 
 %**************************************************************
 
 \subsection{Masked Language Models}\label{subsec:masked-language-models}
-A \acrfull{mlm} is a pre-training technique whichc first masks out some tokens from the
+A \acrfull{mlm} is a pre-training technique which first masks out some tokens from the
 input sentences and then trains the model to predict the masked
-tokens by the rest of the tokens. A special \texttt{[MASK]} token is used to replace some words randomly into the original text.
+tokens by the rest of the tokens. A special \texttt{[MASK]} token is used to replace some words randomly in the original text.
 
-Masked Language Modelling is usually solved as classification problem. We feed the masked
+Masked Language Modelling is usually solved as a classification problem. We feed the masked
 sequences to a neural encoder whose output vectors are further fed into a softmax classifier to predict the masked token.
 
 The most popular MLM is \acrshort{bert} \cite{devlin2018bert}, which is a bidirectional encoder representation from a particular deep learning architecture called \gls{transformer} \cite{vaswani2017attention}. 
-It uses self-supervised training on the masked language modeling and next sentence prediction tasks to learn/produce contextual representations of words.
+It uses self-supervised training on the masked language modelling and next sentence prediction tasks to learn/produce contextual representations of words.
 
-Concurrently, there are multiple research proposing different enhanced versions of MLM to further improve on BERT. Instead
+Concurrently, there are multiple research proposing different enhanced versions of MLM to further improve BERT. Instead
 of static masking, RoBERTa \cite{liu2019roberta} improves BERT by dynamic masking.
 While other models aim to optimize BERT's performance, DistilBERT has a different goal. Its target is to reduce the large size and enhance the speed of BERT while still keeping as much strength as possible.
 DistilBERT \cite{sanh2019distilbert} reduces the size of $BERT_{BASE}$ by 40\%, enhances the speed by 60\% while retaining 97\% of its capabilities.
@@ -137,21 +137,21 @@ ALBERT \cite{lan2019albert} also reduces the model size of BERT, it does not hav
 \subsection{Text classification}\label{subsec:text-classification}
 
 Classification lies at the heart of both human and machine intelligence. Deciding what letter, word, or image has been presented to our senses, recognizing faces or voices, sorting mail, assigning grades to homeworks; these are all examples of assigning a category to an input.
-In this section we introduce text classification, the task of assigning a label or category to an entire text or document.
+In this section, we introduce text classification, the task of assigning a label or category to an entire text or document.
 
 Given a text document, assign it a discrete label $y \in Y$, where $Y$ is the set of possible labels. 
 Text classification has many applications, from spam filtering to the analysis of electronic health records, or the categorization of news articles.
 
 Classification is essential for tasks below the level of the document as well.
-An example of this is period disambiguation (deciding if a period is the end of a sentence or part of a word), or word tokenization (deciding if a character should be a word boundary). Even language modeling can be viewed as classification: each word can be thought of as a class, and so predicting the next word is classifying the context-so-far into a class for each next word. A part-of-speech tagger classifies each occurrence of a word in a sentence as, e.g., a noun or a verb.
+An example of this is period disambiguation (deciding if a period is the end of a sentence or part of a word), or word tokenization (deciding if a character should be a word boundary). Even language modelling can be viewed as classification: each word can be thought of as a class, and so predicting the next word is classifying the context-so-far into a class for each next word. A part-of-speech tagger classifies each occurrence of a word in a sentence as, e.g., a noun or a verb.
 
 The goal of classification is to take a single observation, extract some useful features, and thereby classify the observation into one of a set of discrete classes.
 
-One method for classifying text is to use handwritten rules. There are many areas of language processing where handwritten rule-based classifiers constitute a state-ofthe-art system, or at least part of it. Rules can be fragile, however, as situations or data change over time, and for
-some tasks humans aren't necessarily good at coming up with the rules. Most cases of classification in language processing are instead done via supervised machine learning, where an algorithm learn how to map from an observation to a correct output \cite{Jurafsky2009}.
+One method for classifying text is to use handwritten rules. There are many areas of language processing where handwritten rule-based classifiers constitute a state-of-the-art system, or at least part of it. Rules can be fragile, however, as situations or data change over time, and for
+some tasks humans aren't necessarily good at coming up with rules. Most cases of classification in language processing are instead done via supervised machine learning, where an algorithm learns how to map from an observation to a correct output \cite{Jurafsky2009}.
 
 Many kinds of machine learning algorithms are used to build classifiers.
-Formerly, statistical and machine learning approaches, such as naïve Bayes, k-nearest neighbors, hidden Markov models, conditional random fields (CRFs), decision trees, random forests, and support vector machines, were widely used to design classifiers. 
+Formerly, statistical and machine learning approaches, such as naïve Bayes, k-nearest neighbours, hidden Markov models, conditional random fields (CRFs), decision trees, random forests, and support vector machines, were widely used to design classifiers. 
 However, during the past several years, there has been a wholesale transformation, and these approaches have been entirely replaced, or at least enhanced, by neural network models \cite{surveyNlpDeepLearning}. 
 
 %**************************************************************
@@ -159,7 +159,7 @@ However, during the past several years, there has been a wholesale transformatio
 A popular application of text classification is sentiment analysis, the extraction of sentiment, the positive or negative orientation that a writer expresses toward some object. A review of a movie, book, or product on the web expresses the author's sentiment toward the product, while an editorial or political text expresses sentiment toward a candidate or political action. Extracting consumer or public sentiment is thus relevant for fields from marketing to politics. \cite{Jurafsky2009}
 
 The simplest version of sentiment analysis is a binary classification task, and
-the words of the review provide excellent cues. Consider, for example, the following phrases extracted from positive and negative reviews of movies and restaurants. Words like great, richly, awesome, and pathetic, and awful and ridiculously are very informative cues:
+the words of the review provide excellent cues. Consider, for example, the following phrases extracted from positive and negative reviews of movies and restaurants. Words like great, richly, awesome, pathetic, awful and ridiculously are very informative cues:
 
 \emph{$+$ ...zany characters and richly applied satire, and some great plot twists}
 \par

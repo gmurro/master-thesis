@@ -42,7 +42,7 @@ dataset = HuggingFaceDataset(dataset_name, None, "test")
 random_seed = 765
 
 # set the number of samples to attack
-num_examples = 60
+num_examples = 5
 
 # create dataframe where we will store the results
 try:

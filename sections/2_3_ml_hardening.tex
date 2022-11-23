@@ -3,7 +3,7 @@
 Adversarial examples demonstrate that many modern machine learning algorithms can be broken easily in surprising ways. 
 An essential purpose for generating adversarial examples for neural networks is to utilize these adversarial examples to enhance the model's robustness.
 
-The overwhelming amount of work in the last few years for adversarial defenses has given good competition to the novel adversarial attack algorithms and considerably improved the robustness of existing deep learning models. These defense mechanisms are also used as regularization techniques to avoid overfitting, and making the model more robust \cite{https://doi.org/10.48550/arxiv.2203.06414}.
+The overwhelming amount of work in the last few years for adversarial defences has given good competition to the novel adversarial attack algorithms and considerably improved the robustness of existing deep learning models. These defence mechanisms are also used as regularization techniques to avoid overfitting, and making the model more robust \cite{https://doi.org/10.48550/arxiv.2203.06414}.
 
 %**************************************************************
 \subsection{Vanilla adversarial training}\label{subsec:adversarial-training}
@@ -23,14 +23,14 @@ Although adversarial training can effectively improve the robustness of NLP mode
 
 %**************************************************************
 \subsection{Attack to Training}\label{subsec:a2t}
-High computational cost hinders the use of vanilla adversarial training in NLP, and it is unclear how and as to what extent such training can improve an NLP model's performance.
+High computational cost hinders the use of vanilla adversarial training in NLP, and it is unclear how and to what extent such training can improve an NLP model's performance.
 
 Yoo et al. \cite{https://doi.org/10.48550/arxiv.2109.00544} propose to improve the vanilla
 adversarial training in NLP with a computationally cheaper adversary, referred to as \acrfull{a2t}. 
 A2T attempts to generate adversarial examples on the fly during training of the model on the training set, which is much cheaper than generating adversarial examples in advance.
 This approach can improve an NLP model's robustness to the attack it was originally trained with and also defend the model against other types of word substitution attacks.
 
-The attack component in A2T is designed to be is faster than previous attacks from literature. Previous attacks such as \cite{conf/emnlp/GargR20, journals/corr/abs-1907-11932} iteratively replace one word at a time to generate adversarial examples.
+The attack component in A2T is designed to be is faster than previous attacks from the literature. Previous attacks such as \cite{conf/emnlp/GargR20, journals/corr/abs-1907-11932} iteratively replace one word at a time to generate adversarial examples.
 One issue with this method is that an additional
 forward pass of the model must be made for each.
 word to calculate its importance. For longer text inputs, this can mean that we have to make up to hundreds of forward passes to generate one adversarial example.

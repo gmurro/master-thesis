@@ -23,9 +23,9 @@ a fact of mathematical life \cite{Comiter2019AttackingAI}.
 Two main types of AI attacks can be defined according to the time at which the attack happens \cite{journals/corr/abs-1810-00069}:
 \begin{itemize}
     \item \textbf{Adversarial Attacks (Evasion)}: this is the most common type of attack in
-    the adversarial setting. The adversary tries to evade the system by adjusting malicious samples during testing phase. This
+    the adversarial setting. The adversary tries to evade the system by adjusting malicious samples during the testing phase. This
     setting does not assume any influence over the training data.
-    In Figure \ref{fig:2_2_evasion} is depicted how adding an imperceptible and carefully constructed noise to the input originally regognized as “panda” with 57.7\% confidence, we can change
+    In Figure \ref{fig:2_2_evasion} is depicted how adding an imperceptible and carefully constructed noise to the input originally recognized as “panda” with 57.7\% confidence, we can change
     the classification output given by the same neural network toward another target (in the example “gibbon” with 99.3\% confidence).
     \item \textbf{Data Poisoning Attacks}: This type of attack, known as contamination of the training data, is carried out at training phase of
     the machine learning model. An adversary tries to inject
@@ -49,8 +49,8 @@ Two main types of AI attacks can be defined according to the time at which the a
   \caption{Examples of Artificial Intelligence Attacks} \label{fig:2_2_adversarial_attacks}
   \end{figure}
 
-In this thesis, we will focus on the first type of attack, the Adversarial Attacks.
-Over past few years, researchers \cite{goodfellow2014explaining, szegedy2013intriguing} used small unperceivable perturbations to evaluate the robustness of deep neural networks and found that they are not robust to these perturbations. 
+In this thesis, we will focus on the first type of attack: Adversarial Attacks.
+Over the past few years, researchers \cite{goodfellow2014explaining, szegedy2013intriguing} used small unperceivable perturbations to evaluate the robustness of deep neural networks and found that they are not robust to these perturbations. 
 
 %**************************************************************
 \subsection{Adversarial examples}\label{subsec:adversarial-attacks}
@@ -72,11 +72,11 @@ where $\eta$ is the worst-case perturbation. The goal of the adversarial attack 
 \subsection[Paradigm shift]{Paradigm shift: from CV to NLP}\label{subsec:paradigm-shift}
 Adversarial examples were first proposed for attacking DNNs for object recognition in the \acrfull{cv} community.
 The former work on this field by Szegedy et. al. \cite{szegedy2013intriguing}  was based on L-BFGS, but despite the effectiveness of the method, it was computationally expensive and impractical.
-Goodfellow et al. \cite{goodfellow2014explaining} proposed a \acrfull{fsgm} that popularized this research topic. It is a simplification of the L-BFGS method since it add a small perturbation to the input of a model, which is computed by taking the sign of the gradient of the loss function with respect to the input.
-Most follow-up research was based on optimizaion methods (eg. JSMA \cite{journals/corr/PapernotMJFCS15}, DeepFool \cite{journals/corr/Moosavi-Dezfooli15}, C\&W \cite{journals/corr/CarliniW16a}) or leveraging \acrfull{gan} to generate adversaries \cite{journals/corr/abs-1710-11342}.
+Goodfellow et al. \cite{goodfellow2014explaining} proposed a \acrfull{fsgm} that popularized this research topic. It is a simplification of the L-BFGS method since it adds a small perturbation to the input of a model, which is computed by taking the sign of the gradient of the loss function with respect to the input.
+Most follow-up research was based on optimization methods (eg. JSMA \cite{journals/corr/PapernotMJFCS15}, DeepFool \cite{journals/corr/Moosavi-Dezfooli15}, C\&W \cite{journals/corr/CarliniW16a}) or leveraging \acrfull{gan} to generate adversaries \cite{journals/corr/abs-1710-11342}.
 
 As shown in Figure \ref{fig:2_2_adversarial_trend}, adversarial technology has attracted attention and has developed rapidly. Based on the paper list\footnote{\url{https://nicholas.carlini.com/writing/2019/all-adversarial-example-papers.html}} collected by Carlini, the chart counts
-the number of publications related to adversarial in the CV and NLP fields. Compared with studies in the CV field, the publications in the NLP domain are far less. However, due to the wide application of NLP technology in text classification, sentiment analysis, text question-answering, neural machine translation, text generation and other tasks, as well as the continuous deepening of adversarial attack and defense technologies, the textual adversarial technology has gradually gained researchers' attention.
+the number of publications related to adversarial in the CV and NLP fields. Compared with studies in the CV field, the publications in the NLP domain are far fewer. However, due to the wide application of NLP technology in text classification, sentiment analysis, text question-answering, neural machine translation, text generation and other tasks, as well as the continuous deepening of adversarial attack and defence technologies, textual adversarial technology has gradually gained researchers' attention.
 
 \begin{figure}
     \centering
@@ -85,7 +85,7 @@ the number of publications related to adversarial in the CV and NLP fields. Comp
     \label{fig:2_2_adversarial_trend}
 \end{figure}
 
-Papernot et al. \cite{journals/corr/PapernotMSH16} is the first to investigate adversarial attacks
+Papernot et al. \cite{journals/corr/PapernotMSH16} are the first to investigate adversarial attacks
 on texts. Inspired by the idea of generating adversarial images, they crafted adversarial texts through the forward derivative associated with texts' embeddings, by modifying characters or words in original texts.
 
 
@@ -144,14 +144,14 @@ crafted inputs and observing outputs.  For example, to identify meaningful words
 According to the attack purpose of an adversary, adversarial
 attack methods are categorized into targeted and non-targeted attacks \cite{QIU2022278}.
 
-\textbf{Non-targeted attack}. The adversary hopes to generate an adversarial example $x^\prime$ that makes the victim model $f$ produce a wrong output $f(x^\prime) \neq y$, where $y$ is the correct label of the input $x$. Since there is no limit on the target wrong output, this kind of attack is more frequently employed.
+\textbf{Non-targeted attack}. The adversary hopes to generate an adversarial example $x^\prime$ that makes the victim model $f$ produce a wrong output $f(x^\prime) \neq y$, where $y$ is the correct label of the input $x$. Since there is no limit on the target's wrong output, this kind of attack is more frequently employed.
 
 \textbf{Targeted attack}. In this scenario, the adversary intends to generate adversarial examples that make victim models output a specified wrong prediction. More specifically, the adversary hopes that the generated example $x^\prime$ to cause the victim model $f$ outputting $t=f(x^\prime)$, where $t$ is the output specified by the adversary.
 
 %-------------------------------------------------------------
 \subsubsection{Attack strategy}\label{subsubsec:attack-strategy}
 
-According to different strategies in the adversarial example generation process, Shilin Qiu et al. \cite{QIU2022278} divide adversarial attacks into six types: gradient-based, optimization-based, importance-based, editbased, paraphrase-based, and generative model-based methods. Among them, strategies like the gradient-based method are evolved from adversarial image generation methods, and the implementation process of these attacks is usually relatively straightforward. While other methods like the optimizationbased and edit-based methods are proposed for discrete data, they generally show better performance in maintaining semantic consistency and grammatical correctness; however, they have enormous difficulty when designing well-turned algorithms.
+According to different strategies in the adversarial example generation process, Shilin Qiu et al. \cite{QIU2022278} divide adversarial attacks into six types: gradient-based, optimization-based, importance-based, edit-based, paraphrase-based, and generative model-based methods. Among them, strategies like the gradient-based method are evolved from adversarial image generation methods, and the implementation process of these attacks is usually relatively straightforward. While other methods like the optimization-based and edit-based methods are proposed for discrete data, they generally show better performance in maintaining semantic consistency and grammatical correctness; however, they have enormous difficulty when designing well-turned algorithms.
 
 \textbf{Gradient-based}. These methods calculate the forward derivative to the input and obtain adversarial perturbations by gradient backpropagation. Therefore, the vectorization for text needs to be implemented at first.
 
@@ -169,15 +169,15 @@ According to different strategies in the adversarial example generation process,
 \subsubsection{Semantic granularity}\label{subsubsec:semantic-granularity}
 
 Since the text is discrete, classifying adversarial attacks according to semantic granularity is more intuitive than NLP tasks or black/white-box scenarios.
-Thus, Huq et al. \cite{https://doi.org/10.48550/arxiv.2005.14108} divided textual adversarial attacks into four categories: the character-level, word-level, sentencelevel, and multi-level attack.
+Thus, Huq et al. \cite{https://doi.org/10.48550/arxiv.2005.14108} divided textual adversarial attacks into four categories: character-level, word-level, sentence-level, and multi-level attack.
 
-\textbf{Character-Level Attack}. Individual characters in this attack are either modified with new characters, special characters, and numbers. These are either added to the texted, swapped with a neighbor, removed from the word, or flipped.
+\textbf{Character-Level Attack}. Individual characters in this attack are either modified with new characters, special characters, and numbers. These are either added to the text, swapped with a neighbour, removed from the word, or flipped.
 
 \textbf{Word-Level Attack}. In this attacks words from the texts are changed with their synonyms, antonyms, or changed to appear as a typing mistake or removed completely.
 
 \textbf{Sentence-Level Attack}. This attack inserts extra distractor sentences, generates the paraphrase, or modifies the original sentence structure to fool the victim model.
 
-\textbf{Multi-Level Attack}. Attacks which can be used in a combination of character, word, and sentence level are called multi-level attack.
+\textbf{Multi-Level Attack}. Attacks which can be used in a combination of character, word, and sentence level are called multi-level attacks.
 
 %**************************************************************
 \subsection{Adversarial attack methods from literature}\label{subsec:aam-from-literature}
@@ -187,13 +187,13 @@ Several adversarial attack methods have been proposed in the literature. In this
 Those methods are categorized according to the classification defined in Sec. \ref{subsubsec:semantic-granularity}:
 1 character-level attack (DeepWordBug \cite{journals/corr/abs-1801-04354}), 4 word-level attacks (Probabilistic Weighted Word Saliency (PWWS) \cite{conf/acl/RenDHC19}, TextFooler \cite{journals/corr/abs-1907-11932}, BERT-based attack \cite{conf/emnlp/LiMGXQ20} and Semese-PSO \cite{conf/acl/ZangQYLZLS20}), 2 sentence-level attacks (Synthetically Controlled Paraphrase Networks (SCPNs \cite{conf/naacl/IyyerWGZ18}), and GAN-based attack \cite{journals/corr/abs-1710-11342}), and 1 multi-level attack (TextBugger \cite{conf/ndss/LiJDLW19}).
 
-DeepWordBug detemines top critical tokens and modifies them by character-level transformations introducing typos. 
-PWWS is a synonym-based substitution method that make use of the word saliency and classification probability.
-TextFooler identifies important words, and replace them with the most semantically similar and grammatically correct substitutes.
+DeepWordBug determines top critical tokens and modify them by character-level transformations introducing typos. 
+PWWS is a synonym-based substitution method that makes use of the word saliency and classification probability.
+TextFooler identifies important words, and replaces them with the most semantically similar and grammatically correct substitutes.
 BERT-based attack finds the vulnerable words for the target model and replaces them with candidates from a pre-trained BERT model.
 Semese-PSO reduces search space by a sememe-based word replacement method, searching for adversarial examples through the PSO algorithm in the reduced search space.
 SCPNs generates adversarial examples by paraphrasing the original sentence using an encoder-decoder model.
-GAN-based attack generates adversarial examples using iterative stochastic search and hybrid shrinking search. The framework consisting of a GAN and a converter.
+GAN-based attack generates adversarial examples using iterative stochastic search and hybrid shrinking search. The framework consists of a GAN and a converter.
 TextBugger generates character-level and word-level adversarial texts according to the importance in black-box and white-box scenarios.
 
 \begin{table}[h]
@@ -284,7 +284,7 @@ Since this thesis focuses on the word-level attack, we will introduce the detail
 
 TextFooler \cite{journals/corr/abs-1907-11932} is  a word-level attack in the black-box setting designed to evade two fundamental natural language tasks, text classification and textual entailment. 
 
-For generating semantics-preserving texts with minimum modifications, it uses an importance-based strategy. First a selection mechanism is performed to choose the words that most significantly influence the final prediction results. Those words are ranked in descending order according to the class probability changes, which were obtained by removing words one by one and measuring the difference between the prediction confidence before and after deleting each word.
+For generating semantics-preserving texts with minimum modifications, it uses an importance-based strategy. First, a selection mechanism is performed to choose the words that most significantly influence the final prediction results. Those words are ranked in descending order according to the class probability changes, which were obtained by removing words one by one and measuring the difference between the prediction confidence before and after deleting each word.
 After ranking the words by their importance score, stop words (such as “the”, “when”, and “none”) derived from NLTK\footnote{\url{https://www.nltk.org/}} are filtered out. This simple step of filtering is important to avoid grammar destruction.
 
 Starting from these importance ranked words, three strategies (synonym extraction, part-of-speech checking, and semantic similarity checking) are combined to replace words with the most semantically similar and grammatically correct substitutes.
@@ -292,14 +292,14 @@ Starting from these importance ranked words, three strategies (synonym extractio
 \textbf{Synonym Extraction}.
 Word replacement candidates are initiated with $50$ closest synonyms according to the cosine similarity between $w_i$ and every other word in the vocabulary.
 To represent the words, counter-fitted word embeddings from Mrkšić et al. \cite{conf/naacl/MrksicSTGRSVWY16} are used.
-These GloVe vectors are specially curated for injecting antonymy and synonymy constraints into vector space representations. They achieve the state-of-theart performance on SimLex-999, a dataset designed to measure how well different models judge semantic similarity between words \cite{hill2014simlex999}.
+These GloVe vectors are specially curated for injecting antonymy and synonymy constraints into vector space representations. They achieve the state-of-the-art performance on SimLex-999, a dataset designed to measure how well different models judge the semantic similarity between words \cite{hill2014simlex999}.
 
 
 \textbf{POS Checking}.
 To ensure the grammatical correctness of the generated adversarial examples, the \acrfull{pos} tags of the original words are checked against the POS tags of the replacement candidates, and only the words with the same POS tags are kept.
 
 \textbf{Semantic Similarity Checking}.
-Each remaining candidate word is substituted into the original sentence $X$, and obtain the adversarial example $X_{adv}$. Then, the sentence semantic similarity is calculated between the source $X$ and adversarial counterpart $X_{adv}$. Specifically, \acrfull{use} \cite{journals/corr/abs-1803-11175} is used to encode the two sentences into high dimensional vectors and use their cosine similarity score as an approximation of semantic similarity. The words resulting in similarity scores above a preset threshold are placed into the final candidate pool.
+Each remaining candidate word is substituted into the original sentence $X$, and obtain the adversarial example $X_{adv}$. Then, the sentence semantic similarity is calculated between the source $X$ and adversarial counterpart $X_{adv}$. Specifically, \acrfull{use} \cite{journals/corr/abs-1803-11175} is used to encode the two sentences into high-dimensional vectors and use their cosine similarity score as an approximation of semantic similarity. The words resulting in similarity scores above a preset threshold are placed into the final candidate pool.
 
 Finally, the target model $F$ to compute the corresponding prediction scores $F(X_{adv})$.
 If there exists any candidate that can already alter the prediction of the target model, then it is selected the word with the highest semantic similarity score among these winning candidates. 
