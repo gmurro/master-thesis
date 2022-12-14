@@ -219,8 +219,8 @@ TSWLatexianTemp*
 *-tags.tex
 
 # compile files
-compile*
-*.bat
+#compile*
+#*.bat
 *.xmpi
 
 .idea/
