@@ -1,7 +1,7 @@
 \section{Data collection}\label{sec:data-collection}
 %**************************************************************
 
-SynBA has been evaluated under the same contradictions against TextFooler \cite{conf/emnlp/LiMGXQ20} and BAE \cite{conf/emnlp/GargR20}, two baseline attack methods that represent  the state-of-the-art in the field of text classification attacks. 
+SynBA has been evaluated under the same condictions against TextFooler \cite{conf/emnlp/LiMGXQ20} and BAE \cite{conf/emnlp/GargR20}, two baseline attack methods that represent  the state-of-the-art in the field of text classification attacks. 
 %**************************************************************
 \subsection{Experimental setup}\label{subsec:experimental-setup}
 
@@ -12,15 +12,15 @@ Performing adversarial attacks under the same resources allows us to have a fair
 
 %**************************************************************
 
-\subsection{Datasets perturFbed}\label{subsec:datasets-perturbed}
+\subsection{Datasets perturbed}\label{subsec:datasets-perturbed}
 
-The number of words in the input affects the running time and success rate for each attack method. 
+The number of words in the input affects the execution time and success rate for each attack method. 
 Indeed the more words the input has, the more time it takes to generate the attack.
 On the other hand, if the input sequence is long, the attack is more likely to succeed because there are more words to perturb.
 
-We have chosen to use the following benchmark datasets for our experiments, that are very well known in literature and have been used in many previous works:
+We chose to use the following benchmark datasets for our experiments, that are very well known in literature and have been used in many previous works:
 \begin{itemize}
-    \item \textbf{IMDB} \cite{maas-EtAl:2011:ACL-HLT2011}: a dataset of 50,000 movie reviews from IMDB, labelled as positive or negative. The dataset is split into 25,000 reviews for training and 25,000 reviews for testing;
+    \item \textbf{IMDB} \cite{maas-EtAl:2011:ACL-HLT2011}: a dataset of 50,000 movie reviews from IMDB, labelled as positive or negative. The dataset is divided into 25,000 reviews for training and 25,000 reviews for testing;
     \item \textbf{Rotten Tomatoes} \cite{pang-lee:2005a}: a dataset for binary sentiment classification  containing containing 5,331 positive and 5,331 negative processed sentences from Rotten Tomatoes movie reviews.
 \end{itemize}
 

@@ -4,7 +4,7 @@ In order to answer the research questions defined in section \ref{sec:research-q
 we have designed an evaluation framework that allows us to compare the performance of the proposed method against the state-of-the-art in the field of text classification attacks.
 
 
-\subsection{Qualitative evaluation}\label{subsec:qualitative-evaluation}
+\subsection{Semantic preservation evaluation}\label{subsec:qualitative-evaluation}
 %**************************************************************
 
 We started evaluating the statistics of the attack processes measuring the \emph{attack metrics}.
@@ -35,16 +35,15 @@ Generally speaking, those outcomes highlight that our proposed solution is able 
         \hline
         {} &           \textbf{TextFooler} &   \textbf{BAE} &    \textbf{SynBA} \\
         \hline \hline
-        \emph{Successful attacks}            &      917 &             608 &               864 \\
-        \emph{Failed  attacks}                &       15 &             324 &                68 \\
-        \emph{Skipped  attacks }             &       68 &              68 &                68 \\
-        \emph{Original/pertuberd accuracy}    &     93.2/1.5 &            93.2/32.4 &              93.2/6.8 \\
-        \emph{Attack success rate}            &    \textbf{98.39} &           65.24 &              92.7 \\
-        \emph{Avg word perturbed }            &     8.76 &            \textbf{4.49} &              4.95 \\
-        \emph{Avg original perplexity }       &    41.48 &           41.78 &              41.5 \\
-        \emph{Avg attack perplexity}          &     63.0 &            \textbf{48.4} &             50.74 \\
-        \emph{Avg SBERT similarity }          &    0.928 &           \textbf{0.964} &             0.944 \\
-        \emph{Attack contradiction rate}      &    0.053 &           0.164 &             \textbf{0.049} \\
+        \emph{Successful attacks}  ($\uparrow$)             &      \textbf{917} &             608 &               864 \\
+        \emph{Failed  attacks}  ($\downarrow$)                &       \textbf{15} &             324 &                68 \\
+        \emph{Skipped  attacks}  ($\downarrow$)             &       68 &              68 &                68 \\
+        \emph{Original/pertuberd accuracy}  ($\downarrow$)   &     \textbf{93.2/1.5} &            93.2/32.4 &              93.2/6.8 \\
+        \emph{Attack success rate}  ($\uparrow$)              &    \textbf{98.39} &           65.24 &              92.7 \\
+        \emph{Avg word perturbed}  ($\downarrow$)               &     8.76 &            \textbf{4.49} &              4.95 \\
+        \emph{Avg original/perturbed perplexity}  ($\downarrow$)       &    41.48/63.0 &           \textbf{41.78/48.4} &              41.5/50.74 \\
+        \emph{Avg SBERT similarity} ($\uparrow$)          &    0.928 &           \textbf{0.964} &             0.944 \\
+        \emph{Attack contradiction rate} ($\downarrow$)      &    0.053 &           0.164 &             \textbf{0.049} \\
         \hline
         \end{tabular}
     \caption{Attack results on IMDB dataset}
@@ -58,16 +57,15 @@ Generally speaking, those outcomes highlight that our proposed solution is able 
         \hline
         {} &           \textbf{TextFooler} &   \textbf{BAE} &    \textbf{SynBA} \\
         \hline \hline
-        \emph{Successful attacks}           &    754 &   522                &         578 \\
-        \emph{Failed  attacks}              &     89 &   321                &         265 \\
-        \emph{Skipped  attacks }            &    157 &   157                &         157 \\
-        \emph{Original/pertuberd accuracy}  &   84.3/8.9 &  84.3/32.1       &  84.3/26.5 \\
-        \emph{Attack success rate}          &   \textbf{89.44} &     61.92  &    68.56 \\
-        \emph{Avg word perturbed }          &   19.48 &     15.07           &    \textbf{14.05} \\
-        \emph{Avg original perplexity }     &   72.58 &     76.96           &    72.05 \\
-        \emph{Avg attack perplexity}        &  154.52 &     \textbf{99.91}  &   112.08 \\
-        \emph{Avg SBERT similarity }        &   0.805 &     0.776           &    \textbf{0.901} \\
-        \emph{Attack contradiction rate}    &   0.196 &     0.536           &    \textbf{0.123} \\
+        \emph{Successful attacks} ($\uparrow$)           &    \textbf{754} &   522                &         578 \\
+        \emph{Failed  attacks} ($\downarrow$)              &     \textbf{89} &   321                &         265 \\
+        \emph{Skipped  attacks} ($\downarrow$)            &    157 &   157                &         157 \\
+        \emph{Original/pertuberd accuracy} ($\downarrow$)  &   \textbf{84.3/8.9} &  84.3/32.1       &  84.3/26.5 \\
+        \emph{Attack success rate} ($\uparrow$)          &   \textbf{89.44} &     61.92  &    68.56 \\
+        \emph{Avg word perturbed} ($\downarrow$)          &   19.48 &     15.07           &    \textbf{14.05} \\
+        \emph{Avg original/perturbed perplexity} ($\downarrow$)    &   72.58/154.52 &     \textbf{76.96/99.91}          &    72.05/112.08 \\
+        \emph{Avg SBERT similarity} ($\uparrow$)        &   0.805 &     0.776           &    \textbf{0.901} \\
+        \emph{Attack contradiction rate} ($\downarrow$)    &   0.196 &     0.536           &    \textbf{0.123} \\
         \hline
         \end{tabular}
 
@@ -80,9 +78,9 @@ Generally speaking, those outcomes highlight that our proposed solution is able 
 
 %**************************************************************
 
-\subsection{Quantitative evaluation}\label{subsec:quantitative-evaluation}
+\subsection{Cost assessment}\label{subsec:quantitative-evaluation}
 
-For a comprehensive evaluation of the proposed method, we have also measured the running time for each component of SynBA and compared it with the baselines.
+For a comprehensive evaluation of the proposed method, we have also measured the execution time for each component of SynBA and compared it with the baselines.
 Table \ref{tab:runtime-imdb} and \ref{tab:runtime-rotten}  show the results of the experiments respectively on IMDB and Rotten Tomatoes datasets.
 
 A glance at the tables reveals that SynBA is the fastest attack, since it requires less time to generate the adversarial examples (on average 7.7 seconds on IMDB, 1.4 seconds on Rotten Tomatoes).
@@ -96,23 +94,23 @@ The only constraint that strongly impacts the runtime analysis is Sentence-BERT,
 \begin{table}[h]
     \footnotesize
     \centering
-    \begin{tabular}{|l|c|c|c|}
+    \begin{tabular}{|l||c|c|c|}
         \hline
         {} &            \textbf{TextFooler} &   \textbf{BAE} &    \textbf{SynBA} \\
         \hline \hline
-        \emph{Avg attack time}           &      16.61 &     23.462 &     \textbf{7.686} \\
+        \emph{Avg attack time}  ($\downarrow$)          &      16.61 &     23.462 &     \textbf{7.686} \\
         \hline
-        \emph{Avg WIR time}        &       3.25 &      3.341 &    \textbf{0.087} \\
+        \emph{Avg WIR time} ($\downarrow$)        &       3.25 &      3.341 &    \textbf{0.087} \\
         \hline
-        \emph{Avg transformation time}      &      \textbf{0.147} &      0.252 &     0.191 \\
+        \emph{Avg transformation time} ($\downarrow$)      &      \textbf{0.147} &      0.252 &     0.191 \\
         \hline
-        \emph{Avg constraints time}   &         &          &          \\      
+        \emph{Avg constraints time} ($\downarrow$)   &   \textbf{0.0140}      &   0.0217       &   0.0555       \\      
         WordEmbeddingDistance        &  0.0002 &          &   0.0001 \\
         PartOfSpeech                 &  0.0065 &  0.0115  &   0.0073 \\
         UniversalSentenceEncoder     &  0.0073 &  0.0102  &          \\
         BERT                         &         &          &   0.0481 \\
         \hline
-        \emph{Avg num queries}             &    604.85 &      352.21 &     \textbf{191.14} \\
+        \emph{Avg num queries} ($\downarrow$)             &    604.85 &      352.21 &     \textbf{191.14} \\
         \hline
         \end{tabular}
     \caption{Runtime analysis on IMDB dataset in seconds}
@@ -123,23 +121,23 @@ The only constraint that strongly impacts the runtime analysis is Sentence-BERT,
 \begin{table}[h]
     \footnotesize
     \centering
-    \begin{tabular}{|l|c|c|c|}
+    \begin{tabular}{|l||c|c|c|}
         \hline
         {} &            \textbf{TextFooler} &   \textbf{BAE} &    \textbf{SynBA} \\
         \hline \hline
-        \emph{Avg attack time}            &  2.049 &   1.578 &   \textbf{1.439} \\
+        \emph{Avg attack time} ($\downarrow$)            &  2.049 &   1.578 &   \textbf{1.439} \\
         \hline
-        \emph{Avg WIR time}               &  0.189 &   0.189 &  \textbf{0.083} \\
+        \emph{Avg WIR time} ($\downarrow$)               &  0.189 &   0.189 &  \textbf{0.083} \\
         \hline
-        \emph{Avg transformation time}    &  \textbf{0.011} &   0.073 &   0.105 \\
+        \emph{Avg transformation time} ($\downarrow$)    &  \textbf{0.011} &   0.073 &   0.105 \\
         \hline
-        \emph{Avg constraints time}       &         &          &          \\
+        \emph{Avg constraints time} ($\downarrow$)       &  \textbf{0.0116}       &  0.0195        &   0.0226       \\
         WordEmbeddingDistance        &  0.0002 &          &   0.0001 \\
         PartOfSpeech                 &  0.0057 &  0.0111  &   0.0069 \\
         UniversalSentenceEncoder     &  0.0058 &  0.0084  &          \\
         BERT                         &         &          &   0.0156 \\
         \hline
-        \emph{Avg num queries}            &  110.15 &    56.77 &    \textbf{45.27} \\
+        \emph{Avg num queries} ($\downarrow$)            &  110.15 &    56.77 &    \textbf{45.27} \\
         \hline
         \end{tabular}
     \caption{Runtime analysis on Rotten Tomatoes dataset in seconds}
@@ -167,6 +165,17 @@ During the survey, participants were asked to rate the sample pairs with one of 
     \item \textbf{Unclear}: the perturbed sample is not clear enough to be evaluated.
 \end{itemize}
 
+
+A Jupyter notebook has been developed to collect the annotations. In particular, we use \texttt{pigeon}\footnote{\url{https://github.com/agermanidis/pigeon}}, a python library to easily annotate each adversarial sample one by one according to the consistency perceived.
+An example of the interface used by human judges is shown in Figure \ref{fig:human-evaluation-form}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.99\linewidth]{images/human-evaluation-form.png}
+    \caption{Example of the interface used by human judges to evaluate the consistency of the adversarial examples}
+    \label{fig:human-evaluation-form}
+\end{figure}
+
 We averaged the counts of the adversarial samples based on the labels with which they were annotated. Table \ref{tab:human-evaluation} presents the results of the survey.
 The human judgement on BAE confirms the outcome of the contradiction rate metric (see Table \ref{tab:results-rotten}), since more than half of the adversarial examples are inconsistent with the original sample or unclear.
 TextFooler instead generates a considerable amount of unclear adversaries (about 17.6\%), meaning that the perturbations frequently end up in sentences that do not make sense.
@@ -179,7 +188,7 @@ To give readers a more detailed insight into the human evaluation, Tables \ref{t
     \centering
     \begin{tabular}{|l|c|c|c|}
         \hline
-        {Label} &            \textbf{TextFooler} &   \textbf{BAE} &    \textbf{SynBA} \\
+        \textbf{Label} &            \textbf{TextFooler} &   \textbf{BAE} &    \textbf{SynBA} \\
         \hline \hline
         \emph{Consistent}            &  70.666 &   49.333 &   \textbf{85.666} \\
         \hline
@@ -196,12 +205,12 @@ To give readers a more detailed insight into the human evaluation, Tables \ref{t
 \begin{table}[h]
     \footnotesize
     \centering
-    \begin{tabularx}{\textwidth}{|l|X|X|}
+    \begin{tabularx}{\textwidth}{|l||X|X|}
     \hline
-    Method   &   Original    &   Perturbed\\ \hline\hline
-    TextFooler & \textcolor{ForestGreen}{POS (99.84\%)}: charlotte \textcolor{ForestGreen}{sometimes} is a gem. it's \textcolor{ForestGreen}{always enthralling}.  & \textcolor{red}{NEG (99.84\%)}: charlotte \textcolor{red}{rarely} is a gem. it's \textcolor{red}{stubbornly puzzling}. \\ \hline
-    BAE &  \textcolor{ForestGreen}{POS (99.34\%)}: the most \textcolor{ForestGreen}{ingenious} film comedy since being john malkovich  & \textcolor{red}{NEG (99.94\%)}: the most \textcolor{red}{difficult} film comedy since being john malkovich \\ \hline
-    SynBA & \textcolor{ForestGreen}{POS (99.93\%)}: \textcolor{ForestGreen}{intriguing} and stylish  & \textcolor{red}{NEG (99.66\%)}: \textcolor{red}{puzzling} and stylish  \\ \hline
+    \textbf{Method}   &   \textbf{Original}    &   \textbf{Perturbed}\\ \hline\hline
+    \emph{TextFooler} & \textcolor{ForestGreen}{POS (99.84\%)}: charlotte \textcolor{ForestGreen}{sometimes} is a gem. it's \textcolor{ForestGreen}{always enthralling}.  & \textcolor{red}{NEG (99.84\%)}: charlotte \textcolor{red}{rarely} is a gem. it's \textcolor{red}{stubbornly puzzling}. \\ \hline
+    \emph{BAE} &  \textcolor{ForestGreen}{POS (99.34\%)}: the most \textcolor{ForestGreen}{ingenious} film comedy since being john malkovich  & \textcolor{red}{NEG (99.94\%)}: the most \textcolor{red}{difficult} film comedy since being john malkovich \\ \hline
+    \emph{SynBA} & \textcolor{ForestGreen}{POS (99.93\%)}: \textcolor{ForestGreen}{intriguing} and stylish  & \textcolor{red}{NEG (99.66\%)}: \textcolor{red}{puzzling} and stylish  \\ \hline
 \end{tabularx}
     \caption{Some adversarial examples annotated as “inconsistent” by human judges}
     \label{tab:inconsistent-examples}
@@ -210,12 +219,12 @@ To give readers a more detailed insight into the human evaluation, Tables \ref{t
 \begin{table}[h]
     \footnotesize
     \centering
-    \begin{tabularx}{\textwidth}{|l|X|X|}
+    \begin{tabularx}{\textwidth}{|l||X|X|}
     \hline
-    Method   &   Original    &   Perturbed\\ \hline\hline
-    TextFooler & \textcolor{ForestGreen}{POS (99.95\%)}: lan \textcolor{ForestGreen}{yu} is a genuine \textcolor{ForestGreen}{love story} , full of \textcolor{ForestGreen}{traditional layers} of \textcolor{ForestGreen}{awakening} and \textcolor{ForestGreen}{ripening} and \textcolor{ForestGreen}{separation} and recovery  &  \textcolor{red}{NEG (76.99\%)}: lan \textcolor{red}{woo} is a genuine \textcolor{red}{affectionate conte} , full of \textcolor{red}{routine grades} of \textcolor{red}{causing} and \textcolor{red}{mature} and \textcolor{red}{seperate} and recovery . \\ \hline
-    BAE &  \textcolor{ForestGreen}{POS (99.74\%)}: the \textcolor{ForestGreen}{story} is \textcolor{ForestGreen}{smart} and entirely charming in \textcolor{ForestGreen}{intent} and execution  & \textcolor{red}{NEG (99.88\%)}: the \textcolor{red}{guy} is \textcolor{red}{drunk} and entirely charming in \textcolor{red}{disguise} and execution \\ \hline
-    SynBA &  \textcolor{red}{NEG (99.87\%)}: even \textcolor{red}{fans} of ismail merchant's work , i suspect , would have a \textcolor{red}{hard} time \textcolor{red}{sitting} through this one &  \textcolor{ForestGreen}{POS (83.9\%)}: even \textcolor{ForestGreen}{amateurs} of ismail merchant's work , i suspect , would have a \textcolor{ForestGreen}{intense} time \textcolor{ForestGreen}{hearing} through this one \\
+    \textbf{Method}   &   \textbf{Original}    &   \textbf{Perturbed}\\ \hline\hline
+    \emph{TextFooler} & \textcolor{ForestGreen}{POS (99.95\%)}: lan \textcolor{ForestGreen}{yu} is a genuine \textcolor{ForestGreen}{love story} , full of \textcolor{ForestGreen}{traditional layers} of \textcolor{ForestGreen}{awakening} and \textcolor{ForestGreen}{ripening} and \textcolor{ForestGreen}{separation}  &  \textcolor{red}{NEG (76.99\%)}: lan \textcolor{red}{woo} is a genuine \textcolor{red}{affectionate conte} , full of \textcolor{red}{routine grades} of \textcolor{red}{causing} and \textcolor{red}{mature} and \textcolor{red}{seperate} \\ \hline
+    \emph{BAE} &  \textcolor{ForestGreen}{POS (99.74\%)}: the \textcolor{ForestGreen}{story} is \textcolor{ForestGreen}{smart} and entirely charming in \textcolor{ForestGreen}{intent} and execution  & \textcolor{red}{NEG (99.88\%)}: the \textcolor{red}{guy} is \textcolor{red}{drunk} and entirely charming in \textcolor{red}{disguise} and execution \\ \hline
+    \emph{SynBA} &  \textcolor{red}{NEG (99.87\%)}: even \textcolor{red}{fans} of ismail merchant's work , i suspect , would have a \textcolor{red}{hard} time \textcolor{red}{sitting} through this one &  \textcolor{ForestGreen}{POS (83.9\%)}: even \textcolor{ForestGreen}{amateurs} of ismail merchant's work , i suspect , would have a \textcolor{ForestGreen}{intense} time \textcolor{ForestGreen}{hearing} through this one \\
     \hline
 \end{tabularx}
     \caption{Some adversarial examples annotated as “unclear” by human judges}

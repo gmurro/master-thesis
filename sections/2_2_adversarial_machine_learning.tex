@@ -15,7 +15,7 @@ tampering the original output.
 Unlike traditional cybersecurity
 attacks, these weaknesses are not due to mistakes made by programmers or users. They are
 just shortcomings of the current state-of-the-art
-methods. Put more bluntly, the algorithms that
+methods. Actually, the algorithms that
 cause AI systems to work so well are imperfect,
 and their systematic limitations create opportunities for adversaries to attack. At least for the foreseeable future, this is just
 a fact of mathematical life \cite{Comiter2019AttackingAI}.
@@ -57,8 +57,11 @@ Over the past few years, researchers \cite{goodfellow2014explaining, szegedy2013
 
 Szegedy et al. \cite{szegedy2013intriguing} first evaluated the state-of-the-art deep neural networks used for image classification with small generated perturbations on the input images.
 They found that the image classifiers were fooled with high probability, but human judgment is not affected. The perturbed image pixels were named \emph{adversarial examples} and this notation is later used to denote all kinds of perturbed samples in a general manner.
+
 Formally, adversarial example $x^\prime$ is an example created via worst-case perturbation of the input to a deep learning model. An ideal deep neural network would still assign correct class $y$ (in the case of classification task) to $x^\prime$, 
-while a victim deep neural network would have high confidence on wrong prediction of $x^\prime$. $x^\prime$ can be formalized as:
+while a victim deep neural network would have high confidence on wrong prediction of $x^\prime$. 
+
+\noindent The adversarial example $x^\prime$ can be formalized as:
 \begin{equation}
     \begin{array}{l}
     x^\prime = x + \eta, \quad f(x)=y, \quad x \in X,\\
@@ -76,7 +79,7 @@ Goodfellow et al. \cite{goodfellow2014explaining} proposed a \acrfull{fsgm} that
 Most follow-up research was based on optimization methods (eg. JSMA \cite{journals/corr/PapernotMJFCS15}, DeepFool \cite{journals/corr/Moosavi-Dezfooli15}, C\&W \cite{journals/corr/CarliniW16a}) or leveraging \acrfull{gan} to generate adversaries \cite{journals/corr/abs-1710-11342}.
 
 As shown in Figure \ref{fig:2_2_adversarial_trend}, adversarial technology has attracted attention and has developed rapidly. Based on the paper list\footnote{\url{https://nicholas.carlini.com/writing/2019/all-adversarial-example-papers.html}} collected by Carlini, the chart counts
-the number of publications related to adversarial in the CV and NLP fields. Compared with studies in the CV field, the publications in the NLP domain are far fewer. However, due to the wide application of NLP technology in text classification, sentiment analysis, text question-answering, neural machine translation, text generation and other tasks, as well as the continuous deepening of adversarial attack and defence technologies, textual adversarial technology has gradually gained researchers' attention.
+the number of publications related to adversarial machine learning in the CV and NLP fields. Compared with studies in the CV field, the publications in the NLP domain are far fewer. However, due to the wide application of NLP technology in text classification, sentiment analysis, text question-answering, neural machine translation, text generation and other tasks, as well as the continuous deepening of adversarial attack and defence technologies, textual adversarial technology has gradually gained researchers' attention.
 
 \begin{figure}
     \centering
@@ -187,67 +190,72 @@ Several adversarial attack methods have been proposed in the literature. In this
 Those methods are categorized according to the classification defined in Sec. \ref{subsubsec:semantic-granularity}:
 1 character-level attack (DeepWordBug \cite{journals/corr/abs-1801-04354}), 4 word-level attacks (Probabilistic Weighted Word Saliency (PWWS) \cite{conf/acl/RenDHC19}, TextFooler \cite{journals/corr/abs-1907-11932}, BERT-based attack \cite{conf/emnlp/LiMGXQ20} and Semese-PSO \cite{conf/acl/ZangQYLZLS20}), 2 sentence-level attacks (Synthetically Controlled Paraphrase Networks (SCPNs \cite{conf/naacl/IyyerWGZ18}), and GAN-based attack \cite{journals/corr/abs-1710-11342}), and 1 multi-level attack (TextBugger \cite{conf/ndss/LiJDLW19}).
 
+
 DeepWordBug determines top critical tokens and modify them by character-level transformations introducing typos. 
 PWWS is a synonym-based substitution method that makes use of the word saliency and classification probability.
 TextFooler identifies important words, and replaces them with the most semantically similar and grammatically correct substitutes.
-BERT-based attack finds the vulnerable words for the target model and replaces them with candidates from a pre-trained BERT model.
-Semese-PSO reduces search space by a sememe-based word replacement method, searching for adversarial examples through the PSO algorithm in the reduced search space.
-SCPNs generates adversarial examples by paraphrasing the original sentence using an encoder-decoder model.
-GAN-based attack generates adversarial examples using iterative stochastic search and hybrid shrinking search. The framework consists of a GAN and a converter.
-TextBugger generates character-level and word-level adversarial texts according to the importance in black-box and white-box scenarios.
 
 \begin{table}[h]
   \footnotesize
   \centering
   \begin{tabular}{|c||c|c|c|c|}
     \hline
-    Method & Granularity & Strategy & Model access & Attack goal \\
+    \textbf{Method} & \textbf{Granularity} & \textbf{Strategy} & \textbf{Model access} & \textbf{Attack goal} \\
     \hline \hline
-    DeepWordBug & Character-level & Importance-based & Black-box & Non-targeted \\ 
+    \emph{DeepWordBug} & Character-level & Importance-based & Black-box & Non-targeted \\ 
     
-    PWWS & Word-level & Importance-based & Black-box & Non-targeted \\
+    \emph{PWWS} & Word-level & Importance-based & Black-box & Non-targeted \\
     
-    TextFooler & Word-level & Importance-based & Black-box & Non-targeted \\
+    \emph{TextFooler} & Word-level & Importance-based & Black-box & Non-targeted \\
     
-    BERT-based & Word-level & Importance-based & Black-box & Non-targeted \\
+    \emph{BERT-based} & Word-level & Importance-based & Black-box & Non-targeted \\
     
-    Semese-PSO & Word-level & Optimization-based & Black-box & Non-targeted \\
+    \emph{Semese-PSO} & Word-level & Optimization-based & Black-box & Non-targeted \\
     
-    SCPNs & Sentence-level & Paraphrase-based & Black-box & Non-targeted \\
+    \emph{SCPNs} & Sentence-level & Paraphrase-based & Black-box & Non-targeted \\
     
-    GAN-based & Sentence-level & Generative model-based & Black-box & Non-targeted \\
+    \emph{GAN-based} & Sentence-level & Generative model-based & Black-box & Non-targeted \\
     
-    TextBugger & Multi-level & Importance-based & Black/White-box & Non-targeted \\
+    \emph{TextBugger} & Multi-level & Importance-based & Black/White-box & Non-targeted \\
     \hline
   \end{tabular}
   \caption{Several adversarial attack methods from literature}
 \label{tab:attack-methods}
 \end{table}
 
+\vspace{0.5cm}
+
+\noindent BERT-based attack finds the vulnerable words for the target model and replaces them with candidates from a pre-trained BERT model.
+Semese-PSO reduces search space by a sememe-based word replacement method, searching for adversarial examples through the PSO algorithm in the reduced search space.
+SCPNs generates adversarial examples by paraphrasing the original sentence using an encoder-decoder model.
+GAN-based attack generates adversarial examples using iterative stochastic search and hybrid shrinking search. The framework consists of a GAN and a converter.
+TextBugger generates character-level and word-level adversarial texts according to the importance in black-box and white-box scenarios.
+
+
 
 To give readers a more intuitive understanding of these attack
-methods, in Figure \ref{fig:2_2_adversarial_examples} are showed adversarial examples generated by each method. 
+methods, in Figure \ref{fig:2_2_adversarial_examples} are shown adversarial examples generated by each method. 
 The original examples are two randomly selected from the \acrfull{sst} dataset, and both of them are correctly classified as Positive by the pre-trained BERT model for sentiment analysis.
 
 From the perspective of example quality, character-level attack
 methods maintain the semantics of original texts well. However, they are easily detected by human eyes or spelling check tools.
 In contrast, word-level attacks compensate for the vulnerability of adversarial examples to detection but affect the semantics of the text to some extent.
-sentence-level attacks enhance the diversity of generated examples. However, it is clear to see that these adversarial examples crafted by sentence-level SCPNs and GAN-based methods are very different from the original ones in both semantics and readability. 
+Sentence-level attacks enhance the diversity of generated examples. However, it is clear to see that these adversarial examples crafted by sentence-level SCPNs and GAN-based methods are very different from the original ones in both semantics and readability. 
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.9\linewidth]{images/2_2_adversarial_examples.png}
+  \includegraphics[width=0.8\linewidth]{images/2_2_adversarial_examples.png}
   \caption{Adversarial examples generated by different methods \cite{QIU2022278}}
   \label{fig:2_2_adversarial_examples}
 \end{figure}
 
-For comparing the attack performance of the above methods, Shilin Qiu et. al. \cite{QIU2022278} randomly selected 5000 examples from the SST dataset to generate corresponding adversarial texts and attack the selected victim model using the above methods. 
+To compare the attack performance of the above methods, Shilin Qiu et. al. \cite{QIU2022278} randomly selected 5000 examples from the SST dataset to generate corresponding adversarial texts and attack the selected victim model using the above methods. 
 The end goal of the attack algorithms is to trick
-the model to make wrong prediction by manipulating the input. So the \gls{attack-success-rate} of an evasion algorithm is defined as
+the model to make wrong prediction by manipulating the input. The \gls{attack-success-rate} of an evasion algorithm is defined as
 the percentage of wrong prediction by the victim model on the adversarial examples \cite{conf/acl-wnlp/TsaiYC19}.
-Table \ref{tab:2_2_attack-performance} shows the result.
-In terms of attack success rate, TextBugger is the highest, and its execution time is also relatively low. The reason might be that TextBugger uses the Jacobian matrix to calculate the importance of each word at once. In comparison, the average model queries of sentence-level methods (SCPNs and GAN-based method) are the lowest, but their attack success rates are not satisfactory. As mentioned above, the differences between the adversarial examples generated by sentence-level methods and the original ones are relatively huge, so researchers should focus on maintaining the semantic consistency and imperceptibility of texts for sentence-level methods.
-Focusing on word-level attacks, the model query are comparatively numerous. However, TextFooler and BERT-based attack have a relatively highest attack success rate and a low execution time. 
+Table \ref{tab:2_2_attack-performance} shows the results.
+In terms of attack success rate, TextBugger is the highest, and its execution time is also relatively low. The reason might be that TextBugger uses the Jacobian matrix to calculate the importance of each word at once. In comparison, the average model queries of sentence-level methods (SCPNs and GAN-based method) are the lowest, but their attack success rates are not satisfactory. As mentioned above, the differences between the adversarial examples generated by sentence-level methods and the original ones are quite significant, so researchers should focus on maintaining the semantic consistency and imperceptibility of texts for sentence-level methods.
+Focusing on word-level attacks, the model query are comparatively numerous. However, TextFooler and BERT-based attack have a relatively high attack success rate and a low execution time. 
 
 Since this thesis focuses on the word-level attack, we will introduce the details of TextFooler and BERT-based attack in the following sections and use them as the baseline for our proposed method.
 
@@ -256,25 +264,25 @@ Since this thesis focuses on the word-level attack, we will introduce the detail
   \centering
   \begin{tabular}{|c||c|c|c|}
     \hline
-    Method & Attack  & Average Model  & Average Running \\
-           & Success Rate & Queries (times) & Time (seconds) \\
+    \textbf{Method} & \textbf{Attack}  & \textbf{Average Model}  & \textbf{Average Running} \\
+           & \textbf{Success Rate ($\bm{\uparrow}$)} & \textbf{Queries ($\bm{\downarrow}$)} & \textbf{Time in seconds ($\bm{\downarrow}$)} \\
     \hline \hline
-    DeepWordBug & 59.46\% & 23.626 & 0.000439 \\
+    \emph{DeepWordBug} & 59.46\% & 23.626 & \textbf{0.000439} \\
    
-    PWWS & 75.74\% & 117.82 & 0.002190 \\
+    \emph{PWWS} & 75.74\% & 117.82 & 0.002190 \\
    
-    TextFooler & 74.86\% & 61.68 & 0.053360 \\
+    \emph{TextFooler} & 74.86\% & 61.68 & 0.053360 \\
    
-    BERT-based & 88.44\% & 61.94 & 0.036131 \\
+    \emph{BERT-based} & 88.44\% & 61.94 & 0.036131 \\
    
-    SCPNs & 75.66\% & 11.75 & 2.366100 \\
+    \emph{SCPNs} & 75.66\% & 11.75 & 2.366100 \\
    
-    GAN-based & 42.06\% & 2.42 & 0.009495 \\
+    \emph{GAN-based} & 42.06\% & \textbf{2.42} & 0.009495 \\
    
-    TextBugger & 90.54\% & 48.79 & 0.001722 \\
+    \emph{TextBugger} & \textbf{90.54\%}& 48.79 & 0.001722 \\
     \hline
   \end{tabular}
-  \caption{Comparison of Adversarial Attacks Performance \cite{QIU2022278}}
+  \caption{Comparison of Adversarial Attacks performance \cite{QIU2022278}}
 \label{tab:2_2_attack-performance}
 \end{table}
 
@@ -284,7 +292,7 @@ Since this thesis focuses on the word-level attack, we will introduce the detail
 
 TextFooler \cite{journals/corr/abs-1907-11932} is  a word-level attack in the black-box setting designed to evade two fundamental natural language tasks, text classification and textual entailment. 
 
-For generating semantics-preserving texts with minimum modifications, it uses an importance-based strategy. First, a selection mechanism is performed to choose the words that most significantly influence the final prediction results. Those words are ranked in descending order according to the class probability changes, which were obtained by removing words one by one and measuring the difference between the prediction confidence before and after deleting each word.
+To generate semantics-preserving texts with minimum modifications, it uses an importance-based strategy. First, a selection mechanism is performed to choose the words that most significantly influence the final prediction results. Those words are ranked in descending order according to the class probability changes, which were obtained by removing words one by one and measuring the difference between the prediction confidence before and after deleting each word.
 After ranking the words by their importance score, stop words (such as “the”, “when”, and “none”) derived from NLTK\footnote{\url{https://www.nltk.org/}} are filtered out. This simple step of filtering is important to avoid grammar destruction.
 
 Starting from these importance ranked words, three strategies (synonym extraction, part-of-speech checking, and semantic similarity checking) are combined to replace words with the most semantically similar and grammatically correct substitutes.
@@ -301,7 +309,7 @@ To ensure the grammatical correctness of the generated adversarial examples, the
 \textbf{Semantic Similarity Checking}.
 Each remaining candidate word is substituted into the original sentence $X$, and obtain the adversarial example $X_{adv}$. Then, the sentence semantic similarity is calculated between the source $X$ and adversarial counterpart $X_{adv}$. Specifically, \acrfull{use} \cite{journals/corr/abs-1803-11175} is used to encode the two sentences into high-dimensional vectors and use their cosine similarity score as an approximation of semantic similarity. The words resulting in similarity scores above a preset threshold are placed into the final candidate pool.
 
-Finally, the target model $F$ to compute the corresponding prediction scores $F(X_{adv})$.
+Finally, the target model $F$ computes the corresponding prediction scores $F(X_{adv})$.
 If there exists any candidate that can already alter the prediction of the target model, then it is selected the word with the highest semantic similarity score among these winning candidates. 
 But if not, then it is selected the word with the least confidence score of label $y$ as the best replacement word for $w_i$, and repeat synonym extraction to transform the next selected word by importance rank.
 
@@ -328,7 +336,7 @@ word for which the importance score is calculated with the \texttt{[MASK]} token
   I_{w_i} = F_y(X) - F_y(X_{w_i \rightarrow \texttt{[MASK]}})
 \end{equation}
 
-The candidate set $L_i$
+The candidate set
 is constructed from the top 48 predictions of the masked
 language model and the replacement word is chosen as the word which changes
 the prediction the most, subject to $cos_{\tiny{USE}}(X, X_{adv}

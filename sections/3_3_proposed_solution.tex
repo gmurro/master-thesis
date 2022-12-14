@@ -25,7 +25,7 @@ Combining these three scores, we can obtain a ranked list of candidates that res
 %**************************************************************
 
 \subsection{SynBA components}\label{subsec:synba-components}
-SynBA has been implemented using TextAttack, a Python framework for implementing adversarial attacks in NLP (refer to section \ref{sec:text-attack} for more details).
+SynBA has been designed using TextAttack, a Python framework for implementing adversarial attacks in NLP (refer to section \ref{sec:text-attack} for more details).
 Following the framework structure, we decomposed our attack method into four components: a goal function, a set of constraints, a transformation, and a search method.
 
 We reused some of the pre-existing components in TextAttack, such as the \texttt{UntargetedClassification} goal function, the \texttt{GreedyWordSwapWIR} search method and the constraints. 
@@ -35,14 +35,14 @@ Table \ref{tab:3_3_comparing_components} summarizes the differences between SynB
 \begin{table}[h]
     \footnotesize
 \centering
-\begin{tabular}{|c|c|c|c|}
+\begin{tabular}{|c||c|c|c|}
 \hline
-\textbf{Components} & \textbf{TextFooler} & \textbf{BAE}  & \textbf{SynBA}\\ \hline
-Search Method &  Deletion-based &   Deletion-based & Gradient-based\\ 
-for Ranking Words & Word Importance & Word Importance & Word Importance \\ \hline
-Transformation & Word Embedding & BERT MLM & SynBA score \\ \hline
+\textbf{Components} & \textbf{TextFooler} & \textbf{BAE}  & \textbf{SynBA}\\ \hline\hline
+\emph{Search Method} &  Deletion-based &   Deletion-based & Gradient-based\\ 
+\emph{for Ranking Words} & Word Importance & Word Importance & Word Importance \\ \hline
+\emph{Transformation} & Word Embedding & BERT MLM & SynBA score \\ \hline
  & POS  & POS & POS \\ 
- Constraints & USE & USE & Sentence-BERT \\ 
+ \emph{Constraints} & USE & USE & Sentence-BERT \\ 
  & Word Embedding Distance &  & Word Embedding Distance \\ 
  &  &  & Max Modification Rate \\ \hline
  
@@ -56,7 +56,7 @@ Transformation & Word Embedding & BERT MLM & SynBA score \\ \hline
 
 The search method is responsible for going through the search space of possible perturbations and finding a sequence of transformations that produce a successful adversarial example.
 
-Greedy algorithms with word importance ranking are linear concerning input length, with a complexity of $\mathcal{O}(W*T)$, where $W$ indicates the number of words in the input, $T$ is the maximum number of transformation options for a given input \cite{journals/corr/abs-2009-06368}. 
+Greedy algorithms with word importance ranking are linear concerning input length, with a complexity of $\mathcal{O}(W*T)$, where $W$ indicates the number of words in the input and $T$ is the maximum number of transformation options for a given input \cite{journals/corr/abs-2009-06368}. 
 
 So in SynBA we use the \texttt{GreedyWordSwapWIR} search method, which is a greedy search method that iteratively applies the transformation to the input text, and selects the best candidate for each word based on the \acrfull{wir} score.
 Words of the given input are ranked according to the importance function. Then, in order of descending importance, each word is substituted with the best candidate given by the transformation
@@ -65,7 +65,7 @@ that maximizes the scoring function until the goal is achieved, or all words hav
 The WIR is gradient-based, which means that it is able to rank the words in the input text exploiting the gradient of the loss function with respect to each token.
 
 It is the same search method used by the attack component in A2T (see section \ref{subsec:a2t}).
-Yoo et al. \cite{journals/corr/abs-2009-06368} showed that the gradient-ordering method is the fastest search method and provides a competitive attack success rate when compared to the deletion-based method.
+Yoo et al. \cite{journals/corr/abs-2009-06368} shown that the gradient-ordering method is the fastest search method and provides a competitive attack success rate when compared to the deletion-based method.
 %--------------------------------------------------------------
 
 \subsubsection{Transformation}\label{subsubsec:transformation}
@@ -74,7 +74,15 @@ To enforce semantic preservation, we designed the \texttt{WordSwapMultimodal} tr
 It computes a set of $k$ perturbations given a word in the input text selected by the search method, where $k$ is the number of candidates to be generated.
 
 The transformation function is based on the SynBA score, which is described in Figure \ref{fig:3_3_synba_score}.
-It is calculated for each word in the vocabulary and then they are ranked in descending order.
+It is computed for each word in the vocabulary and then the obtained scores are ranked in descending order.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/3_3_synba_score.png}
+    \caption{SynBA score}
+    \label{fig:3_3_synba_score}
+\end{figure}
+
 Tree components are used to compute the SynBA score: the \emph{MLM score}, the \emph{thesaurus score}, and the \emph{word embedding score}.
 
 The \emph{MLM score} is the confidence of the candidate obtained by \texttt{bert-base-uncased}\footnote{\url{https://huggingface.co/bert-base-uncased}} MLM masking the word that we want to perturb.
@@ -104,12 +112,7 @@ Meanwhile, candidates that are subwords, punctuations or contain multiple words 
 
 Before replacing each candidate with the reference word in the input text, we recover the original capitalization of the word, since the MLM and the word embedding models are case insensitive.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\linewidth]{images/3_3_synba_score.png}
-    \caption{SynBA score}
-    \label{fig:3_3_synba_score}
-\end{figure}
+
 
 %--------------------------------------------------------------
 
@@ -123,7 +126,7 @@ We reused the following constraints, which are already implemented in the framew
     \item \texttt{PartOfSpeech} - constraints perturbations to only swap words with the same part of speech. It uses the NLTK universal part-of-speech tagger;
     \item \texttt{WordEmbeddingDistance} - throws away perturbations for which the distance between the original word and the candidate is lower than a threshold $t=0.6$;
     \item \texttt{MaxModificationRate} - limits the number of words that can be perturbed in the input text to a maximum percentage $p=0.2\%$. Since text length can vary a lot between samples, and a $p$ modification limit might not make sense for very short text, it is guaranteed that at least 4 words can be perturbed;
-    \item \texttt{BERT} - checks whether the \acrfull{sts} between the original and the perturbed text is higher than a threshold $t=0.7$. The  sentence embeddings are computed using a Sentence-BERT \cite{reimers2019sentencebert} pre-trained model. In particular, we used the \texttt{stsb-mpnet-base-v2}\footnote{\url{https://huggingface.co/sentence-transformers/stsb-mpnet-base-v2}} model, which is first trained on NLI data, and then we fine-tuned them on the STS benchmark dataset. This generates sentence embeddings that are especially suitable to measure the semantic similarity between sentence pairs.
+    \item \texttt{BERT} - checks whether the \acrfull{sts} between the original and the perturbed text is higher than a threshold $t=0.7$. The  sentence embeddings are computed using a Sentence-BERT \cite{reimers2019sentencebert} pre-trained model. In particular, we used the \texttt{stsb-mpnet-base-v2}\footnote{\url{https://huggingface.co/sentence-transformers/stsb-mpnet-base-v2}} model, which is first trained on NLI data, and then fine-tuned on the STS benchmark dataset. This generates sentence embeddings that are especially suitable to measure the semantic similarity between sentence pairs.
     It has a higher STSb performance score ($88.57$) compared to USE ($74.92$). This performance metric is the Spearman rank correlation $\rho$ between the cosine similarity of sentence representations and the gold labels for various STS tasks.
 \end{itemize}           
 %--------------------------------------------------------------
@@ -138,7 +141,7 @@ The goal function result status can be:
 \begin{itemize}
     \item \texttt{Succeded} - the attack was successful and the predicted label is different from the original one;
     \item \texttt{Failed} - the attack method was not able to find a perturbation that fooled the model;
-    \item \texttt{Skipped} - the ground truth label is different from the predicted one
+    \item \texttt{Skipped} - the ground truth label is different from the predicted one.
 \end{itemize}
 
 %**************************************************************

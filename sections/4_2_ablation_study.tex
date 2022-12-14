@@ -7,31 +7,30 @@ The dataset used for the attack is Rotten Tomatoes and the target model is BERT 
 The results are reported in Table \ref{tab:results-ablation-study}.
 
 The \emph{thesaurus-score}, denoted by the column $\lambda_2=0$, is the least significant component of the SynBA score. In fact, the attack success rate obtained without it (68.92\%) is even higher than the one obtained with the final SynBA score (68.56\%).
-But the semantic similarity is slightly higher when the thesaurus-score is included in the SynBA score, as shown by the quality metrics.
+But the semantic similarity is slightly higher when the \emph{thesaurus-score} is included in the SynBA score, as shown by the quality metrics.
 
 The \emph{word-embedding-score}, represented in the fourth column $\lambda_3=0$, seems to be the most effective. Indeed without it, all the metrics are significantly lower, especially the number of successful attacks which drops to 378 over 1000 total examples.
 
 The second column $\lambda_1=0$ represents the case in which the \emph{MLM-score} is not used, and the results are slightly worse than the ones obtained with the final version of the proposed attack.
 
-Those results confirm the importance of the three components of the SynBA score, and that their combination is the best way to generate high-quality adversarial examples.
+Those results confirm the importance of the three components of the \emph{SynBA score}, and that their combination is the best way to generate high-quality adversarial examples.
 
 \begin{table}[h]
     \footnotesize
     \centering
-    \begin{tabular}{|l|c|c|c||c|}
+    \begin{tabular}{|l||c|c|c||c|}
         \hline
-        {} &           \textbf{$\lambda_1=0$} &   \textbf{$\lambda_2=0$} &   \textbf{$\lambda_3=0$}  & \textbf{SynBA}\\
+        {} &           $\bm{\lambda_1=0}$ &   $\bm{\lambda_2=0}$ &   $\bm{\lambda_3=0}$  & \textbf{SynBA}\\
         \hline \hline
-        \emph{Successful attacks}           &    570 &       581 &         378 &         578 \\
-        \emph{Failed  attacks}              &    273 &       262 &         465 &         265 \\
-        \emph{Skipped  attacks }            &    157 &       157 &         157 &         157 \\
-        \emph{Original/pertuberd accuracy}  &   84.3/27.3 &  84.3/26.2 &  84.3/46.5 &  84.3/26.5 \\
-        \emph{Attack success rate}          &    67.62 &     68.92 &       44.84 &    68.56 \\
-        \emph{Avg word perturbed }          &    13.86 &     14.12 &       14.32 &    14.05 \\
-        \emph{Avg original perplexity }     &   72.58 &     76.96 &    72.05 &    72.05 \\
-        \emph{Avg attack perplexity}        &  113.04 &         113.52 &     115.32 &   112.08 \\
-        \emph{Avg SBERT similarity }        &   0.9 &            0.9 &      0.891 &    0.901 \\
-        \emph{Attack contradiction rate}    &  0.119 &           0.12 &      0.095 &    0.123 \\
+        \emph{Successful attacks} ($\uparrow$)           &    570 &       \textbf{581} &         378 &         578 \\
+        \emph{Failed  attacks}  ($\downarrow$)            &    273 &       \textbf{262} &         465 &         265 \\
+        \emph{Skipped  attacks }  ($\downarrow$)            &    157 &       157 &         157 &         157 \\
+        \emph{Original/pertuberd accuracy} ($\downarrow$)    &   84.3/27.3 &  \textbf{84.3/26.2} &  84.3/46.5 &  84.3/26.5 \\
+        \emph{Attack success rate} ($\uparrow$)          &    67.62 &     \textbf{68.92} &       44.84 &    68.56 \\
+        \emph{Avg word perturbed } ($\downarrow$)           &    \textbf{13.86} &     14.12 &       14.32 &    14.05 \\
+        \emph{Avg original/perturbed perplexity } ($\downarrow$)       &   72.58/113.04 &     \textbf{76.96/113.52} &    72.05/115.32 &    72.05/115.32 \\
+        \emph{Avg SBERT similarity } ($\uparrow$)       &   0.9 &            0.9 &      0.891 &    \textbf{0.901} \\
+        \emph{Attack contradiction rate} ($\downarrow$)     &  0.119 &           0.12 &      \textbf{0.095} &    0.123 \\
         \hline
         \end{tabular}
 

@@ -1,6 +1,6 @@
 \section{Text Attack}\label{sec:text-attack}
 %**************************************************************
-The only textual adversarial attack toolbox currently available are TextAttack \cite{journals/corr/abs-2005-05909} and OpenAttack \cite{journals/corr/abs-2009-09191}.
+The only textual adversarial attack toolboxs currently available are TextAttack \cite{journals/corr/abs-2005-05909} and OpenAttack \cite{journals/corr/abs-2009-09191}.
 TextAttack is the earliest implemented tool and it is python framework to launch adversarial attacks, enable data augmentation and implement adversarial training for natural language process models. 
 It can launch model-specific and evaluate the results, and improve robustness in the downstream and model generalization. 
 
@@ -39,5 +39,4 @@ can run attacks on models implemented in any deep learning framework. Model obje
 
 TextAttack allows users to provide their own models and datasets. Moreover, it is directly integrated with HuggingFace\footnote{\url{https://huggingface.co}}'s transformers and NLP libraries. This allows users to test attacks on models and datasets publicly available on the platform. 
 
-For benchmark purpose, TextAttack
-provides users with 82 pre-trained models, including word-level LSTM, word-level CNN, BERT, and other transformer-based models pre-trained on various datasets provided by HuggingFace NLP. Since TextAttack is integrated with the NLP library, it can automatically load the test or validation data set for the corresponding pre-trained model \cite{journals/corr/abs-2005-05909}. 
+For benchmark purpose, TextAttack provides users with 82 pre-trained models, including word-level LSTM, word-level CNN, BERT, and other transformer-based models pre-trained on various datasets provided by HuggingFace NLP. Since TextAttack is integrated with the NLP library, it can automatically load the test or validation data set for the corresponding pre-trained model \cite{journals/corr/abs-2005-05909}. 

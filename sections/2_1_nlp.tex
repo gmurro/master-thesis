@@ -1,13 +1,14 @@
 \section{Natural Language Processing}\label{sec:nlp}
 %**************************************************************
 
-The field of \gls{nlp}, also known as computational linguistics, is a branch of Artificial Intelligence focused on the technology of processing language.
+The field of \gls{nlp} %, also known as computational linguistics,
+ is a branch of linguistics, computer science, and artificial intelligence focused on the technology of processing language.
 It encompasses a variety of topics, which involves the engineering of computational models and
 processes to solve practical problems in understanding and generating human
 languages. These solutions are used to build useful software.
 
 Linguistics has two
-branches---computational linguistics and theoretical linguistics. Computational
+subfields---computational linguistics and theoretical linguistics. Computational
 linguistics has been concerned with developing algorithms for handling a useful
 range of natural language as input. While theoretical linguistics has focused
 primarily on one aspect of language performance, grammatical competence---how
@@ -69,10 +70,10 @@ the words in WordNet have one or more synonyms.
 The cognitive synonyms which are called \emph{synsets} are presented in the database with lexical and semantic relations. 
 WordNet includes the following semantic relations:
 \begin{itemize}
-    \item \textbf{Hypernymy}: A hypernym is a word that is more general than the word in question. For example, the hypernym of “dog” is “canine”.
-    \item \textbf{Hyponymy}: A hyponym is a word that is more specific than the word in question. For example, the hyponym of “dog” is “poodle”.
-    \item \textbf{Synonymy}: A synonym is a word that has the same meaning as the word in question. For example, the synonym of “good” is “well”.
-    \item \textbf{Antonymy}: An antonym is a word that has the opposite meaning of the word in question. For example, the antonym of “good” is “bad”.
+    \item \textbf{Hypernymy}: A hypernym is a word that is more general than the word in question. For example, a hypernym of “dog” is “canine”.
+    \item \textbf{Hyponymy}: A hyponym is a word that is more specific than the word in question. For example, a hyponym of “dog” is “poodle”.
+    \item \textbf{Synonymy}: A synonym is a word that has the same meaning as the word in question. For example, a synonym of “good” is “tasty”.
+    \item \textbf{Antonymy}: An antonym is a word that has the opposite meaning of the word in question. For example, a antonym of “good” is “bad”.
 \end{itemize}
 
 %**************************************************************
@@ -88,7 +89,7 @@ A common approach to represent a text document is to use a column vector of word
 This embedding is often called a \gls{bag-of-words}, because it includes only information about the count of each word, and not the order in which the words appear.
 The bag-of-words representation ignores grammar, sentence boundaries, paragraphs — everything but the words. Yet the bag of words model is surprisingly effective for text classification.
 
-Another word-count-based method based on the encoding method, widely used in the information retrieval neighborhood, is \acrshort{tfidf}, short for term frequency-inverse document frequency, which aims to reflect the significance ofthe specified term in the document collection and is one of the popular term weighting schemes.
+Another word-count-based method, widely used in the information retrieval, is \acrshort{tfidf}, short for term frequency-inverse document frequency, which aims to reflect the significance of the specified term in the document collection and is one of the most popular term weighting schemes.
 
 \subsubsection{Dense embeddings}\label{subsubsec:static-embeddings}
 Bag-of-words embeddings are sparse and long vectors with dimensions corresponding to words in the vocabulary or documents in a collection.
@@ -129,9 +130,9 @@ It uses self-supervised training on the masked language modelling and next sente
 
 Concurrently, there are multiple research proposing different enhanced versions of MLM to further improve BERT. Instead
 of static masking, RoBERTa \cite{liu2019roberta} improves BERT by dynamic masking.
-While other models aim to optimize BERT's performance, DistilBERT has a different goal. Its target is to reduce the large size and enhance the speed of BERT while still keeping as much strength as possible.
-DistilBERT \cite{sanh2019distilbert} reduces the size of $BERT_{BASE}$ by 40\%, enhances the speed by 60\% while retaining 97\% of its capabilities.
-ALBERT \cite{lan2019albert} also reduces the model size of BERT, it does not have to trade-off the performance. Compared to DistilBERT, which uses BERT as the teacher for its distillation process, ALBERT is trained from scratch (just like BERT).
+While other models aim to optimize BERT's performance, DistilBERT \cite{sanh2019distilbert} has a different goal. Its target is to reduce the large size and enhance the speed of BERT while still keeping as much strength as possible.
+DistilBERT reduces the size of $BERT_{BASE}$ by 40\%, enhances the speed by 60\% while retaining 97\% of its capabilities.
+ALBERT \cite{lan2019albert} also reduces the model size of BERT and it does not have to trade-off the performance. Compared to DistilBERT, which uses BERT as the teacher for its distillation process, ALBERT is trained from scratch (just like BERT).
 
 %**************************************************************
 \subsection{Text classification}\label{subsec:text-classification}
@@ -156,7 +157,7 @@ However, during the past several years, there has been a wholesale transformatio
 
 %**************************************************************
 \subsection{Sentiment analysis}\label{subsec:sentiment-analysis}
-A popular application of text classification is sentiment analysis, the extraction of sentiment, the positive or negative orientation that a writer expresses toward some object. A review of a movie, book, or product on the web expresses the author's sentiment toward the product, while an editorial or political text expresses sentiment toward a candidate or political action. Extracting consumer or public sentiment is thus relevant for fields from marketing to politics. \cite{Jurafsky2009}
+A popular application of text classification is sentiment analysis, the extraction of sentiment, the positive or negative orientation that a writer expresses toward some object. A review of a movie, book, or product on the web expresses the author's sentiment toward the product, while an editorial or political text expresses sentiment toward a candidate or political action. Extracting consumer or public sentiment is thus relevant for fields from marketing to politics \cite{Jurafsky2009}.
 
 The simplest version of sentiment analysis is a binary classification task, and
 the words of the review provide excellent cues. Consider, for example, the following phrases extracted from positive and negative reviews of movies and restaurants. Words like great, richly, awesome, pathetic, awful and ridiculously are very informative cues:
@@ -185,7 +186,7 @@ or, in other words, decide whether one sentence
 follows from another.
 The relationship can be entailment, contradiction, or neutral.
 
-Specifically, natural language inference (NLI)
+Specifically, natural language inference
 is concerned with determining whether a natural language hypothesis \emph{h} can be inferred from a
 premise \emph{p}, as depicted in the following example
 from \cite{Manning2009NaturalLI}, where the hypothesis is
@@ -212,18 +213,20 @@ A \acrfull{seq2seq} model is  is a special class of \acrfull{rnn} architectures 
 In the general case, input sequences and output sequences have different lengths (e.g. machine translation) and the entire input sequence is required in order to start predicting the target. This requires a more advanced setup:
 \begin{itemize}
     \item An \emph{encoder} processes the input sequence and returns its own internal state. This vector is called the context vector.
-    \item A \emph{decoder} is a neural network that takes the context vector as input and outputs a sequence of tokens. It is trained to predict the next characters of the target sequence, given previous characters of the target sequence. 
+    \item A \emph{decoder} is a neural network that takes the context vector as input and outputs a sequence of tokens. It is trained to predict the next characters of the target sequence, given previous characters in the generated text. 
 \end{itemize}
 
 
 An example of this architecture is shown in Figure \ref{fig:seq2seq}.
-\begin{figure}[ht]
+
+
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\linewidth]{images/2_1_seq2seq.png}
     \caption{An example of a sequence-to-sequence model for machine translation.}
     \label{fig:seq2seq}
 \end{figure}
 
-
+\vspace{1cm}
 
 %**************************************************************

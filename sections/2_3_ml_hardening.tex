@@ -13,11 +13,11 @@ It is a method of defending against adversarial attacks by introducing adversari
 The strength of adversarial examples decides the final robustness and generalization achieved by the model.
 
 This method can be seen as a data augmentation mechanism that extends the original training set with the successfully generated adversarial examples and try to let the model see more data during the training process.
-Adversarial examples need to be carefully designed when training on adversarial examples to improve the model.
+Adversarial examples need to be carefully designed when used to  re-train and improve the model.
 
 Although adversarial training can effectively improve the robustness of NLP models, this approach has some problems: 
 \begin{itemize}
-    \item extensive adversarial examples need to be prepared in advance, resulting in a massive calculation consumption
+    \item extensive adversarial examples need to be prepared in advance, resulting in a massive computational cost
     \item it is likely to reduce the model classification accuracy
 \end{itemize}
 
@@ -32,7 +32,7 @@ This approach can improve an NLP model's robustness to the attack it was origina
 
 The attack component in A2T is designed to be is faster than previous attacks from the literature. Previous attacks such as \cite{conf/emnlp/GargR20, journals/corr/abs-1907-11932} iteratively replace one word at a time to generate adversarial examples.
 One issue with this method is that an additional
-forward pass of the model must be made for each.
+forward pass of the model must be made for each
 word to calculate its importance. For longer text inputs, this can mean that we have to make up to hundreds of forward passes to generate one adversarial example.
 
 A2T instead determines each word's importance
