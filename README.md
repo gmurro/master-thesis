@@ -1,4 +1,4 @@
-# 🎓 Final dissertation for MSc in Artificial Intelligence 📄
+# 🎓 Final thesis for MSc in Artificial Intelligence 📄
 
 This repository contains a final thesis realized for the [Master's degree in Artificial Intelligence](https://corsi.unibo.it/2cycle/artificial-intelligence), University of Bologna.
 
